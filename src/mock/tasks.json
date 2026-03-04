@@ -6,16 +6,16 @@
         {
           "id": 1,
           "parkName": "华东智能制造产业园",
-          "taskName": "2026 年 3 月综合巡检",
-          "address": "江苏省苏州市工业园区星湖街 328 号",
+          "taskName": "2026 年 2 月综合巡检",
+          "address": "中国浙江省宁波市鄞州区菁华路188号",
           "deadline": "3 月 31 日前完成",
           "status": "active"
         },
         {
           "id": 2,
           "parkName": "华南物流枢纽园区",
-          "taskName": "2026 年 3 月综合巡检",
-          "address": "广东省广州市黄埔区开发大道 388 号",
+          "taskName": "2026 年 2 月综合巡检",
+          "address": "中国浙江省宁波市鄞州区菁华路188号",
           "deadline": "3 月 31 日前完成",
           "status": "active"
         }
@@ -27,20 +27,14 @@
       "tasks": [
         {
           "id": 3,
-          "parkName": "华东智能制造产业园",
-          "taskName": "2026 年 4 月综合巡检",
+          "parkName": "华南物流枢纽园区",
+          "taskName": "2026 年 2 月综合巡检",
           "status": "pending"
         },
         {
           "id": 4,
-          "parkName": "华南物流枢纽园区",
-          "taskName": "2026 年 4 月综合巡检",
-          "status": "pending"
-        },
-        {
-          "id": 5,
           "parkName": "长三角新能源产业园",
-          "taskName": "2026 年 4 月综合巡检",
+          "taskName": "2026 年 2 月综合巡检",
           "status": "pending"
         }
       ]
@@ -50,45 +44,21 @@
       "title": "2025 年已完成",
       "tasks": [
         {
+          "id": 5,
+          "parkName": "华东智能制造产业园",
+          "taskName": "2026 年 2 月综合巡检",
+          "status": "completed"
+        },
+        {
           "id": 6,
           "parkName": "华东智能制造产业园",
-          "taskName": "2025 年 12 月综合巡检",
+          "taskName": "2026 年 2 月综合巡检",
           "status": "completed"
         },
         {
           "id": 7,
-          "parkName": "华南物流枢纽园区",
-          "taskName": "2025 年 12 月综合巡检",
-          "status": "completed"
-        },
-        {
-          "id": 8,
-          "parkName": "长三角新能源产业园",
-          "taskName": "2025 年 11 月综合巡检",
-          "status": "completed"
-        },
-        {
-          "id": 9,
           "parkName": "华东智能制造产业园",
-          "taskName": "2025 年 10 月综合巡检",
-          "status": "completed"
-        },
-        {
-          "id": 10,
-          "parkName": "华南物流枢纽园区",
-          "taskName": "2025 年 9 月消防安全检查",
-          "status": "completed"
-        },
-        {
-          "id": 11,
-          "parkName": "长三角新能源产业园",
-          "taskName": "2025 年 8 月设备维护巡检",
-          "status": "completed"
-        },
-        {
-          "id": 12,
-          "parkName": "华东智能制造产业园",
-          "taskName": "2025 年 7 月综合巡检",
+          "taskName": "2026 年 2 月综合巡检",
           "status": "completed"
         }
       ]

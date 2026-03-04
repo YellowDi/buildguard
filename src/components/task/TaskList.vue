@@ -12,14 +12,14 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="mx-auto flex min-h-screen w-full max-w-[430px] flex-col bg-[#EBEBEB]">
+  <section class="mx-auto flex min-h-screen w-full max-w-[430px] flex-col bg-[#EBEBEB] pt-safe">
     <!-- Navigation Bar -->
     <div class="flex items-center px-4 pb-1 pt-3">
       <h1 class="text-[24px] font-bold leading-[32px] text-[#171717]">任务工作台</h1>
     </div>
 
     <!-- Scrollable Content -->
-    <div class="flex flex-1 flex-col overflow-y-auto py-4">
+    <div class="flex flex-1 flex-col overflow-y-auto pb-safe py-4">
       <template v-for="section in sections" :key="section.key">
         <!-- Section Title -->
         <div v-if="section.title" class="flex items-end px-4">
@@ -31,7 +31,7 @@ onMounted(async () => {
         </div>
 
         <!-- Task Cards -->
-        <div class="flex flex-col items-center px-4 pb-4">
+        <div class="flex flex-col items-center px-4 pb-4" :class="section.key === 'pending' ? 'gap-4' : ''">
           <div class="card-shadow w-full overflow-hidden rounded-xl bg-white">
             <div
               v-for="(task, index) in section.tasks"
@@ -54,7 +54,7 @@ onMounted(async () => {
                     </div>
 
                     <!-- Status Badge -->
-                    <div class="flex shrink-0 items-center gap-1 self-start rounded-full border border-[#EBEBEB] bg-white px-1 py-1">
+                    <div class="flex shrink-0 items-center gap-1 self-start rounded-[6px] border border-[#EBEBEB] bg-white px-1 py-1">
                       <i
                         :class="[
                           task.status === 'active' ? 'ri-loader-2-line text-[#171717]' :
@@ -85,6 +85,15 @@ onMounted(async () => {
               </div>
             </div>
           </div>
+
+          <!-- View More Button (pending section only) -->
+          <button
+            v-if="section.key === 'pending'"
+            type="button"
+            class="flex w-full items-center justify-center rounded-lg bg-[rgba(0,0,0,0.05)] py-2"
+          >
+            <span class="text-[14px] font-medium leading-[20px] text-[#5C5C5C]">查看更多待完成任务</span>
+          </button>
         </div>
       </template>
     </div>
@@ -101,5 +110,4 @@ onMounted(async () => {
     0px 10px 10px -5px rgba(23, 23, 23, 0.04),
     0px 20px 20px -10px rgba(23, 23, 23, 0.04),
     inset 0px -1px 1px -0.5px rgba(23, 23, 23, 0.06);
-}
-</style>
+}</style>
