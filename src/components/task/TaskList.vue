@@ -42,34 +42,36 @@ onMounted(async () => {
                 class="flex flex-col gap-4 py-4"
                 :class="index > 0 ? 'border-t border-[#EBEBEB]' : ''"
               >
-                <div class="flex items-center">
-                  <div class="flex flex-1 flex-col justify-center">
-                    <span class="text-[16px] font-medium leading-[24px] text-[#171717]">
-                      {{ task.parkName }}
-                    </span>
-                    <span class="text-[13px] leading-[20px] text-[#5C5C5C]">
-                      {{ task.taskName }}
-                    </span>
-                    <span v-if="task.address" class="text-[13px] leading-[20px] text-[#5C5C5C]">
-                      {{ task.address }}
-                    </span>
-                  </div>
+                <div class="flex flex-col">
+                  <div class="flex items-center">
+                    <div class="flex min-w-0 flex-1 flex-col justify-center">
+                      <span class="text-[16px] font-medium leading-[24px] text-[#171717]">
+                        {{ task.parkName }}
+                      </span>
+                      <span class="text-[13px] leading-[20px] text-[#5C5C5C]">
+                        {{ task.taskName }}
+                      </span>
+                    </div>
 
-                  <!-- Status Badge -->
-                  <div class="flex shrink-0 items-center gap-1 self-start rounded-full border border-[#EBEBEB] bg-white px-1 py-1">
-                    <i
-                      :class="[
-                        task.status === 'active' ? 'ri-loader-2-line text-[#171717]' :
-                        task.status === 'pending' ? 'ri-time-fill text-[#FA7319]' :
-                        'ri-checkbox-circle-fill text-[#1FC16B]'
-                      ]"
-                      class="text-[16px] leading-[16px]"
-                    />
-                    <span class="pr-1 text-[12px] font-medium leading-[16px] text-[#5C5C5C]">
-                      {{ task.status === 'active' ? task.deadline :
-                         task.status === 'pending' ? '待完成' : '已完成' }}
-                    </span>
+                    <!-- Status Badge -->
+                    <div class="flex shrink-0 items-center gap-1 self-start rounded-full border border-[#EBEBEB] bg-white px-1 py-1">
+                      <i
+                        :class="[
+                          task.status === 'active' ? 'ri-loader-2-line text-[#171717]' :
+                          task.status === 'pending' ? 'ri-time-fill text-[#FA7319]' :
+                          'ri-checkbox-circle-fill text-[#1FC16B]'
+                        ]"
+                        class="text-[16px] leading-[16px]"
+                      />
+                      <span class="pr-1 text-[12px] font-medium leading-[16px] text-[#5C5C5C]">
+                        {{ task.status === 'active' ? task.deadline :
+                           task.status === 'pending' ? '待完成' : '已完成' }}
+                      </span>
+                    </div>
                   </div>
+                  <span v-if="task.address" class="truncate text-[13px] leading-[20px] text-[#5C5C5C]">
+                    {{ task.address }}
+                  </span>
                 </div>
 
                 <!-- Action Button (active only) -->
