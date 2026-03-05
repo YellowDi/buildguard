@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import type { TaskDetail, InspectionCategory, CheckItem, CheckItemStatus } from '../../types/task'
 import { fetchTaskDetail } from '../../api/task'
 import InspectionSheet from './InspectionSheet.vue'
 
 const route = useRoute()
-const router = useRouter()
 
 const task = ref<TaskDetail | null>(null)
 const expandedCategoryIds = ref<number[]>([])
@@ -14,11 +13,6 @@ const sheetVisible = ref(false)
 const activeItem = ref<CheckItem | null>(null)
 
 const taskId = computed(() => Number(route.params.id))
-const pageTitle = computed(() => (route.meta?.title as string) || '任务详情')
-
-function goBack() {
-  router.push('/')
-}
 
 const totalItems = computed(() =>
   task.value?.categories.reduce((sum, cat) => sum + cat.items.length, 0) ?? 0
@@ -180,20 +174,6 @@ onMounted(async () => {
 
 <template>
   <section class="mx-auto flex h-screen w-full max-w-[430px] flex-col bg-[#EBEBEB]">
-    <!-- Title Bar (route-controlled) -->
-    <div class="task-detail-nav flex shrink-0 items-center gap-2 px-4 pb-1 pt-3">
-      <button
-        type="button"
-        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full active:bg-black/5"
-        aria-label="返回"
-        @click="goBack"
-      >
-        <i class="ri-arrow-left-s-line text-[24px] leading-[24px] text-[#171717]" />
-      </button>
-      <h1 class="min-w-0 flex-1 truncate text-[24px] font-bold leading-[32px] text-[#171717]">
-        {{ pageTitle }}
-      </h1>
-    </div>
     <!-- Scrollable Content -->
     <div class="flex flex-1 flex-col overflow-y-auto px-4">
 
