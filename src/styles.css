@@ -8,11 +8,6 @@
   body {
     @apply m-0 min-h-screen font-sans text-slate-900 antialiased;
     background-color: #EBEBEB;
-    transition: background-color 200ms ease;
-  }
-
-  html.stuck body {
-    background-color: #FFFFFF;
   }
 
   #app {

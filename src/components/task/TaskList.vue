@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, nextTick, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, nextTick, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { TaskSection } from '../../types/task'
 import { fetchTaskList } from '../../api/task'
@@ -66,10 +66,6 @@ function onClickOutside(e: MouseEvent) {
 
 let observer: IntersectionObserver | null = null
 
-watch(isStuck, (stuck) => {
-  document.documentElement.classList.toggle('stuck', stuck)
-})
-
 onMounted(async () => {
   const data = await fetchTaskList()
   sections.value = data.sections
@@ -89,7 +85,6 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   observer?.disconnect()
   document.removeEventListener('click', onClickOutside, true)
-  document.documentElement.classList.remove('stuck')
 })
 </script>
 
@@ -207,6 +202,7 @@ onBeforeUnmount(() => {
       <!-- Archived Section Title (sticky) -->
       <div
         class="task-sticky sticky top-0 z-10 flex items-end px-4"
+        :class="{ 'is-stuck': isStuck }"
       >
         <div class="flex flex-1 items-center pb-[9px] pt-2">
           <span class="text-[17px] font-semibold leading-[22px] text-[rgba(60,60,67,0.6)]">
@@ -272,7 +268,7 @@ onBeforeUnmount(() => {
           >
             <div
               class="flex items-center py-4"
-              :class="index > 0 ? 'border-t border-[#EBEBEB]' : ''"
+              :class="index > 0 ? 'border-t border-black/[0.08]' : ''"
             >
               <div class="flex min-w-0 flex-1 flex-col justify-center">
                 <span class="text-[16px] font-medium leading-[24px] text-[#171717]">
@@ -306,22 +302,15 @@ onBeforeUnmount(() => {
 .task-nav,
 .task-sticky {
   background-color: #EBEBEB;
-  transition: background-color 200ms ease;
 }
 
 .task-sticky {
   border-bottom: 1px solid transparent;
-  transition: background-color 200ms ease, border-color 200ms ease;
+  transition: border-color 200ms ease;
 }
 
-html.stuck .task-section,
-html.stuck .task-nav,
-html.stuck .task-sticky {
-  background-color: #FFFFFF;
-}
-
-html.stuck .task-sticky {
-  border-bottom-color: #EBEBEB;
+.task-sticky.is-stuck {
+  border-bottom-color: rgba(0, 0, 0, 0.12);
 }
 </style>
 
