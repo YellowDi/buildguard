@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, nextTick, onBeforeUnmount } from 'vue'
+import { useRouter } from 'vue-router'
 import type { TaskSection } from '../../types/task'
 import { fetchTaskList } from '../../api/task'
 import UserCard from '../user/UserCard.vue'
+
+const router = useRouter()
 
 const sections = ref<TaskSection[]>([])
 
@@ -103,7 +106,8 @@ onBeforeUnmount(() => {
           <div
             v-for="(task, index) in activeSection?.tasks"
             :key="task.id"
-            class="px-4"
+            class="cursor-pointer px-4"
+            @click="router.push(`/task/${task.id}`)"
           >
             <div
               class="flex flex-col gap-4 py-4"
@@ -133,6 +137,7 @@ onBeforeUnmount(() => {
               <button
                 type="button"
                 class="flex w-full items-center justify-center rounded-lg bg-[#262626] py-2"
+                @click.stop="router.push(`/task/${task.id}`)"
               >
                 <span class="text-[14px] font-medium leading-[20px] text-white">开始巡检</span>
               </button>
@@ -147,7 +152,8 @@ onBeforeUnmount(() => {
             <div
               v-for="(task, index) in pendingSection?.tasks"
               :key="task.id"
-              class="px-4"
+              class="cursor-pointer px-4 transition-colors active:bg-black/[0.02]"
+              @click="router.push(`/task/${task.id}`)"
             >
               <div
                 class="flex flex-col py-4"
@@ -249,6 +255,8 @@ onBeforeUnmount(() => {
           <div
             v-for="(task, index) in filteredCompletedTasks"
             :key="task.id"
+            class="cursor-pointer transition-colors active:bg-black/[0.03]"
+            @click="router.push(`/task/${task.id}`)"
           >
             <div
               class="flex items-center py-4"

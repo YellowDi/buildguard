@@ -19,3 +19,31 @@ export interface TaskSection {
 export interface TaskListData {
   sections: TaskSection[]
 }
+
+export type CheckItemStatus = 'passed' | 'failed' | 'unchecked'
+
+export interface CheckItem {
+  id: number
+  name: string
+  status: CheckItemStatus
+  remark?: string
+}
+
+export interface InspectionCategory {
+  id: number
+  name: string
+  icon: string
+  items: CheckItem[]
+}
+
+export interface TaskDetail {
+  id: number
+  parkName: string
+  taskName: string
+  address: string
+  deadline: string
+  status: TaskStatus
+  completedAt?: string
+  inspector: string
+  categories: InspectionCategory[]
+}

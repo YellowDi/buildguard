@@ -1,0 +1,186 @@
+{
+  "1": {
+    "id": 1,
+    "parkName": "华东智能制造产业园",
+    "taskName": "2026 年 3 月综合巡检",
+    "address": "浙江省宁波市鄞州区菁华路188号",
+    "deadline": "3 月 31 日前完成",
+    "status": "active",
+    "inspector": "黄某某",
+    "categories": [
+      {
+        "id": 101,
+        "name": "消防安全",
+        "icon": "ri-fire-line",
+        "items": [
+          { "id": 1001, "name": "灭火器有效期检查", "status": "passed" },
+          { "id": 1002, "name": "消防栓水压测试", "status": "passed" },
+          { "id": 1003, "name": "疏散通道畅通性", "status": "unchecked" },
+          { "id": 1004, "name": "消防报警系统测试", "status": "unchecked" },
+          { "id": 1005, "name": "应急照明设备", "status": "unchecked" }
+        ]
+      },
+      {
+        "id": 102,
+        "name": "电气设备",
+        "icon": "ri-flashlight-line",
+        "items": [
+          { "id": 1006, "name": "配电柜温度检测", "status": "passed" },
+          { "id": 1007, "name": "线缆绝缘检查", "status": "unchecked" },
+          { "id": 1008, "name": "接地电阻测试", "status": "unchecked" },
+          { "id": 1009, "name": "漏电保护器测试", "status": "unchecked" }
+        ]
+      },
+      {
+        "id": 103,
+        "name": "建筑结构",
+        "icon": "ri-building-2-line",
+        "items": [
+          { "id": 1010, "name": "外墙裂缝检查", "status": "unchecked" },
+          { "id": 1011, "name": "屋顶防水层", "status": "unchecked" },
+          { "id": 1012, "name": "地基沉降监测", "status": "unchecked" },
+          { "id": 1013, "name": "承重结构安全", "status": "unchecked" }
+        ]
+      },
+      {
+        "id": 104,
+        "name": "环境卫生",
+        "icon": "ri-leaf-line",
+        "items": [
+          { "id": 1014, "name": "公共区域清洁度", "status": "unchecked" },
+          { "id": 1015, "name": "垃圾分类执行情况", "status": "unchecked" },
+          { "id": 1016, "name": "绿化带维护", "status": "unchecked" }
+        ]
+      },
+      {
+        "id": 105,
+        "name": "安防监控",
+        "icon": "ri-shield-check-line",
+        "items": [
+          { "id": 1017, "name": "监控摄像头运行状态", "status": "unchecked" },
+          { "id": 1018, "name": "门禁系统功能", "status": "unchecked" },
+          { "id": 1019, "name": "周界报警系统", "status": "unchecked" }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "id": 2,
+    "parkName": "华南物流枢纽园区",
+    "taskName": "2026 年 3 月综合巡检",
+    "address": "浙江省宁波市鄞州区菁华路188号",
+    "deadline": "3 月 31 日前完成",
+    "status": "active",
+    "inspector": "黄某某",
+    "categories": [
+      {
+        "id": 201,
+        "name": "消防安全",
+        "icon": "ri-fire-line",
+        "items": [
+          { "id": 2001, "name": "灭火器有效期检查", "status": "unchecked" },
+          { "id": 2002, "name": "消防栓水压测试", "status": "unchecked" },
+          { "id": 2003, "name": "疏散通道畅通性", "status": "unchecked" },
+          { "id": 2004, "name": "自动喷淋系统", "status": "unchecked" }
+        ]
+      },
+      {
+        "id": 202,
+        "name": "仓储安全",
+        "icon": "ri-store-2-line",
+        "items": [
+          { "id": 2005, "name": "货架稳固性检查", "status": "unchecked" },
+          { "id": 2006, "name": "堆垛高度合规", "status": "unchecked" },
+          { "id": 2007, "name": "通道宽度检查", "status": "unchecked" },
+          { "id": 2008, "name": "危险品存储合规", "status": "unchecked" }
+        ]
+      },
+      {
+        "id": 203,
+        "name": "电气设备",
+        "icon": "ri-flashlight-line",
+        "items": [
+          { "id": 2009, "name": "配电柜温度检测", "status": "unchecked" },
+          { "id": 2010, "name": "线缆绝缘检查", "status": "unchecked" },
+          { "id": 2011, "name": "应急发电机测试", "status": "unchecked" }
+        ]
+      },
+      {
+        "id": 204,
+        "name": "环境卫生",
+        "icon": "ri-leaf-line",
+        "items": [
+          { "id": 2012, "name": "装卸区清洁度", "status": "unchecked" },
+          { "id": 2013, "name": "排水系统检查", "status": "unchecked" },
+          { "id": 2014, "name": "污染物排放监测", "status": "unchecked" }
+        ]
+      }
+    ]
+  },
+  "5": {
+    "id": 5,
+    "parkName": "华东智能制造产业园",
+    "taskName": "2025 年 12 月综合巡检",
+    "address": "浙江省宁波市鄞州区菁华路188号",
+    "deadline": "12 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2025-12-28",
+    "inspector": "黄某某",
+    "categories": [
+      {
+        "id": 501,
+        "name": "消防安全",
+        "icon": "ri-fire-line",
+        "items": [
+          { "id": 5001, "name": "灭火器有效期检查", "status": "passed" },
+          { "id": 5002, "name": "消防栓水压测试", "status": "passed" },
+          { "id": 5003, "name": "疏散通道畅通性", "status": "passed" },
+          { "id": 5004, "name": "消防报警系统测试", "status": "passed" },
+          { "id": 5005, "name": "应急照明设备", "status": "failed", "remark": "B3栋2层应急灯故障，已提交维修工单" }
+        ]
+      },
+      {
+        "id": 502,
+        "name": "电气设备",
+        "icon": "ri-flashlight-line",
+        "items": [
+          { "id": 5006, "name": "配电柜温度检测", "status": "passed" },
+          { "id": 5007, "name": "线缆绝缘检查", "status": "passed" },
+          { "id": 5008, "name": "接地电阻测试", "status": "passed" },
+          { "id": 5009, "name": "漏电保护器测试", "status": "passed" }
+        ]
+      },
+      {
+        "id": 503,
+        "name": "建筑结构",
+        "icon": "ri-building-2-line",
+        "items": [
+          { "id": 5010, "name": "外墙裂缝检查", "status": "passed" },
+          { "id": 5011, "name": "屋顶防水层", "status": "failed", "remark": "A1栋屋顶防水层老化，建议下次维护周期更换" },
+          { "id": 5012, "name": "地基沉降监测", "status": "passed" },
+          { "id": 5013, "name": "承重结构安全", "status": "passed" }
+        ]
+      },
+      {
+        "id": 504,
+        "name": "环境卫生",
+        "icon": "ri-leaf-line",
+        "items": [
+          { "id": 5014, "name": "公共区域清洁度", "status": "passed" },
+          { "id": 5015, "name": "垃圾分类执行情况", "status": "passed" },
+          { "id": 5016, "name": "绿化带维护", "status": "passed" }
+        ]
+      },
+      {
+        "id": 505,
+        "name": "安防监控",
+        "icon": "ri-shield-check-line",
+        "items": [
+          { "id": 5017, "name": "监控摄像头运行状态", "status": "passed" },
+          { "id": 5018, "name": "门禁系统功能", "status": "passed" },
+          { "id": 5019, "name": "周界报警系统", "status": "passed" }
+        ]
+      }
+    ]
+  }
+}
