@@ -8,6 +8,7 @@ const sections = ref<TaskSection[]>([])
 const activeSection = computed(() => sections.value.find(s => s.key === 'active'))
 const pendingSection = computed(() => sections.value.find(s => s.key === 'pending'))
 const completedSection = computed(() => sections.value.find(s => s.key === 'completed'))
+const completedCount = computed(() => completedSection.value?.tasks.length ?? 0)
 
 const scrollEl = ref<HTMLElement | null>(null)
 const sentinel = ref<HTMLElement | null>(null)
@@ -86,6 +87,21 @@ onBeforeUnmount(() => {
       class="task-nav flex items-center px-4 pb-1 pt-3"
     >
       <h1 class="text-[24px] font-bold leading-[32px] text-[#171717]">任务工作台</h1>
+    </div>
+
+    <!-- User Info Card -->
+    <div class="task-nav px-4">
+      <div class="flex items-center gap-2">
+        <img
+          src="https://image-resource.mastergo.com/60366201960549/60366201960551/795aee2ad5d0970f4d9639a9e7c269aa.jpg"
+          alt="头像"
+          class="h-[44px] w-[44px] shrink-0 rounded-[6px] border border-white object-cover"
+        />
+        <div class="flex flex-col gap-1">
+          <span class="text-[16px] font-medium leading-[24px] text-[#171717]">黄某某</span>
+          <span class="text-[12px] leading-[16px] text-[#5C5C5C]">已完成 {{ completedCount }} 任务</span>
+        </div>
+      </div>
     </div>
 
     <!-- Scrollable Content -->
