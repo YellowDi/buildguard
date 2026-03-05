@@ -266,6 +266,16 @@ onMounted(() => loadTask(taskId.value))
             <i class="ri-calendar-line text-[20px] leading-[20px] text-[#A3A3A3]" />
             <span class="text-[14px] font-medium leading-[20px] text-[#5C5C5C]">{{ task.deadline }}</span>
           </div>
+          <!-- Contact (from parks.json) -->
+          <div v-if="task.contact" class="flex items-center gap-2">
+            <i class="ri-user-line text-[20px] leading-[20px] text-[#A3A3A3]" />
+            <span class="text-[14px] font-medium leading-[20px] text-[#5C5C5C]">{{ task.contact }}</span>
+          </div>
+          <!-- Phone (from parks.json) -->
+          <div v-if="task.phone" class="flex items-center gap-2">
+            <i class="ri-phone-line text-[20px] leading-[20px] text-[#A3A3A3]" />
+            <span class="text-[14px] font-medium leading-[20px] text-[#5C5C5C]">{{ task.phone }}</span>
+          </div>
         </div>
 
         <!-- Progress Bar -->

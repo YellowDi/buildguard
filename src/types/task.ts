@@ -1,5 +1,14 @@
 export type TaskStatus = 'active' | 'pending' | 'completed'
 
+/** 园区信息（来自 parks.json） */
+export interface Park {
+  id: number
+  name: string
+  address: string
+  contact?: string
+  phone?: string
+}
+
 /** 巡检目录：巡检项目名称、描述及子项目内容（与任务无关） */
 export interface CatalogCheckItem {
   id: number
@@ -91,18 +100,24 @@ export interface TaskDetail {
   status: TaskStatus
   completedAt?: string
   inspector: string
+  /** 园区联系人（来自 parks.json） */
+  contact?: string
+  /** 园区电话（来自 parks.json） */
+  phone?: string
   /** 按建筑维度的巡检项；若为空则使用 categories 作为单建筑数据（兼容旧数据） */
   buildings?: Building[]
   /** 兼容：无 buildings 时使用，视为「园区整体」单建筑 */
   categories?: InspectionCategory[]
 }
 
-/** 接口/JSON 返回的任务详情：建筑为引用 + 结果，需与巡检目录合并后得到 TaskDetail */
+/** 接口/JSON 返回的任务详情：建筑为引用 + 结果，需与巡检目录合并后得到 TaskDetail；园区信息可用 parkId 引用 parks 数据 */
 export interface TaskDetailRaw {
   id: number
-  parkName: string
+  /** 园区 ID，存在时从 parks 解析 name/address/contact/phone；否则使用下面对应的字段 */
+  parkId?: number
+  parkName?: string
   taskName: string
-  address: string
+  address?: string
   deadline: string
   status: TaskStatus
   completedAt?: string

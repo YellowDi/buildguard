@@ -8,12 +8,16 @@ import type {
   CheckItem,
   CheckItemResult,
   InspectionCatalog,
+  Park,
 } from '../types/task'
 import mockData from '../mock/tasks.json'
 import mockDetailData from '../mock/task-detail.json'
 import catalogData from '../mock/inspection-catalog.json'
+import parksData from '../mock/parks.json'
 
 const catalog = catalogData as InspectionCatalog
+const parks = (parksData as { parks: Park[] }).parks
+const parkById = new Map(parks.map((p) => [p.id, p]))
 
 const categoryById = new Map(
   catalog.categories.map((c) => [c.id, c]),
@@ -51,15 +55,18 @@ function mergeBuildingRef(ref: TaskDetailBuildingRef): Building {
 }
 
 function resolveTaskDetail(raw: TaskDetailRaw): TaskDetail {
+  const park = raw.parkId != null ? parkById.get(raw.parkId) : null
   const base = {
     id: raw.id,
-    parkName: raw.parkName,
+    parkName: park?.name ?? raw.parkName ?? '',
     taskName: raw.taskName,
-    address: raw.address,
+    address: park?.address ?? raw.address ?? '',
     deadline: raw.deadline,
     status: raw.status,
     completedAt: raw.completedAt,
     inspector: raw.inspector,
+    contact: park?.contact,
+    phone: park?.phone,
   }
   if (raw.buildings?.length) {
     return {
@@ -84,7 +91,7 @@ export async function fetchTaskList(): Promise<TaskListData> {
 }
 
 export async function fetchTaskDetail(id: number): Promise<TaskDetail | null> {
-  const record = mockDetailData as Record<string, TaskDetailRaw>
+  const record = mockDetailData as unknown as Record<string, TaskDetailRaw>
   const raw = record[String(id)] ?? null
   if (!raw) return null
   return resolveTaskDetail(raw)

@@ -1,9 +1,8 @@
 {
   "1": {
     "id": 1,
-    "parkName": "华东智能制造产业园",
+    "parkId": 1,
     "taskName": "2026 年 3 月综合巡检",
-    "address": "浙江省宁波市鄞州区菁华路188号",
     "deadline": "3 月 31 日前完成",
     "status": "active",
     "inspector": "黄某某",
@@ -81,9 +80,8 @@
   },
   "2": {
     "id": 2,
-    "parkName": "华南物流枢纽园区",
+    "parkId": 2,
     "taskName": "2026 年 3 月综合巡检",
-    "address": "浙江省宁波市鄞州区菁华路188号",
     "deadline": "3 月 31 日前完成",
     "status": "active",
     "inspector": "黄某某",
@@ -125,11 +123,92 @@
       }
     ]
   },
+  "3": {
+    "id": 3,
+    "parkId": 2,
+    "taskName": "2026 年 4 月综合巡检",
+    "deadline": "4 月 30 日前完成",
+    "status": "pending",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "1号仓库",
+        "categoryIds": [201, 202],
+        "itemResults": {
+          "2001": { "status": "unchecked" },
+          "2002": { "status": "unchecked" },
+          "2003": { "status": "unchecked" },
+          "2004": { "status": "unchecked" },
+          "2005": { "status": "unchecked" },
+          "2006": { "status": "unchecked" },
+          "2007": { "status": "unchecked" },
+          "2008": { "status": "unchecked" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "2号仓库",
+        "categoryIds": [203],
+        "itemResults": {
+          "2009": { "status": "unchecked" },
+          "2010": { "status": "unchecked" },
+          "2011": { "status": "unchecked" }
+        }
+      },
+      {
+        "id": 3,
+        "name": "综合楼",
+        "categoryIds": [204],
+        "itemResults": {
+          "2012": { "status": "unchecked" },
+          "2013": { "status": "unchecked" },
+          "2014": { "status": "unchecked" }
+        }
+      }
+    ]
+  },
+  "4": {
+    "id": 4,
+    "parkId": 3,
+    "taskName": "2026 年 4 月综合巡检",
+    "deadline": "4 月 30 日前完成",
+    "status": "pending",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [101, 102],
+        "itemResults": {
+          "1001": { "status": "unchecked" },
+          "1002": { "status": "unchecked" },
+          "1003": { "status": "unchecked" },
+          "1004": { "status": "unchecked" },
+          "1006": { "status": "unchecked" },
+          "1007": { "status": "unchecked" },
+          "1008": { "status": "unchecked" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [111, 112],
+        "itemResults": {
+          "1101": { "status": "unchecked" },
+          "1102": { "status": "unchecked" },
+          "1103": { "status": "unchecked" },
+          "1104": { "status": "unchecked" },
+          "1105": { "status": "unchecked" },
+          "1106": { "status": "unchecked" }
+        }
+      }
+    ]
+  },
   "5": {
     "id": 5,
-    "parkName": "华东智能制造产业园",
+    "parkId": 1,
     "taskName": "2025 年 12 月综合巡检",
-    "address": "浙江省宁波市鄞州区菁华路188号",
     "deadline": "12 月 31 日前完成",
     "status": "completed",
     "completedAt": "2025-12-28",
@@ -158,6 +237,756 @@
         "itemResults": {
           "5010": { "status": "normal" },
           "5011": { "status": "risk", "remark": "A1栋屋顶防水层老化，建议下次维护周期更换" },
+          "5012": { "status": "normal" },
+          "5013": { "status": "normal" },
+          "5014": { "status": "normal" },
+          "5015": { "status": "normal" },
+          "5016": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "6": {
+    "id": 6,
+    "parkId": 2,
+    "taskName": "2025 年 12 月综合巡检",
+    "deadline": "12 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2025-12-25",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "1号仓库",
+        "categoryIds": [201, 202],
+        "itemResults": {
+          "2001": { "status": "normal" },
+          "2002": { "status": "normal" },
+          "2003": { "status": "normal" },
+          "2004": { "status": "normal" },
+          "2005": { "status": "normal" },
+          "2006": { "status": "normal" },
+          "2007": { "status": "normal" },
+          "2008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "2号仓库",
+        "categoryIds": [203],
+        "itemResults": {
+          "2009": { "status": "normal" },
+          "2010": { "status": "normal" },
+          "2011": { "status": "normal" }
+        }
+      },
+      {
+        "id": 3,
+        "name": "综合楼",
+        "categoryIds": [204],
+        "itemResults": {
+          "2012": { "status": "normal" },
+          "2013": { "status": "normal" },
+          "2014": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "7": {
+    "id": 7,
+    "parkId": 3,
+    "taskName": "2025 年 11 月综合巡检",
+    "deadline": "11 月 30 日前完成",
+    "status": "completed",
+    "completedAt": "2025-11-27",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [101, 102],
+        "itemResults": {
+          "1001": { "status": "normal" },
+          "1002": { "status": "normal" },
+          "1003": { "status": "normal" },
+          "1004": { "status": "normal" },
+          "1006": { "status": "normal" },
+          "1007": { "status": "normal" },
+          "1008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [111, 112],
+        "itemResults": {
+          "1101": { "status": "normal" },
+          "1102": { "status": "normal" },
+          "1103": { "status": "normal" },
+          "1104": { "status": "normal" },
+          "1105": { "status": "normal" },
+          "1106": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "8": {
+    "id": 8,
+    "parkId": 1,
+    "taskName": "2025 年 10 月综合巡检",
+    "deadline": "10 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2025-10-29",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [501, 502],
+        "itemResults": {
+          "5001": { "status": "normal" },
+          "5002": { "status": "normal" },
+          "5003": { "status": "normal" },
+          "5004": { "status": "normal" },
+          "5005": { "status": "normal" },
+          "5006": { "status": "normal" },
+          "5007": { "status": "normal" },
+          "5008": { "status": "normal" },
+          "5009": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [503, 504],
+        "itemResults": {
+          "5010": { "status": "normal" },
+          "5011": { "status": "normal" },
+          "5012": { "status": "normal" },
+          "5013": { "status": "normal" },
+          "5014": { "status": "normal" },
+          "5015": { "status": "normal" },
+          "5016": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "9": {
+    "id": 9,
+    "parkId": 2,
+    "taskName": "2025 年 9 月消防安全检查",
+    "deadline": "9 月 30 日前完成",
+    "status": "completed",
+    "completedAt": "2025-09-26",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "1号仓库",
+        "categoryIds": [201, 202],
+        "itemResults": {
+          "2001": { "status": "normal" },
+          "2002": { "status": "normal" },
+          "2003": { "status": "normal" },
+          "2004": { "status": "normal" },
+          "2005": { "status": "normal" },
+          "2006": { "status": "normal" },
+          "2007": { "status": "normal" },
+          "2008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "2号仓库",
+        "categoryIds": [203],
+        "itemResults": {
+          "2009": { "status": "normal" },
+          "2010": { "status": "normal" },
+          "2011": { "status": "normal" }
+        }
+      },
+      {
+        "id": 3,
+        "name": "综合楼",
+        "categoryIds": [204],
+        "itemResults": {
+          "2012": { "status": "normal" },
+          "2013": { "status": "normal" },
+          "2014": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "10": {
+    "id": 10,
+    "parkId": 3,
+    "taskName": "2025 年 8 月设备维护巡检",
+    "deadline": "8 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2025-08-28",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [101, 102],
+        "itemResults": {
+          "1001": { "status": "normal" },
+          "1002": { "status": "normal" },
+          "1003": { "status": "normal" },
+          "1004": { "status": "normal" },
+          "1006": { "status": "normal" },
+          "1007": { "status": "normal" },
+          "1008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [111, 112],
+        "itemResults": {
+          "1101": { "status": "normal" },
+          "1102": { "status": "normal" },
+          "1103": { "status": "normal" },
+          "1104": { "status": "normal" },
+          "1105": { "status": "normal" },
+          "1106": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "11": {
+    "id": 11,
+    "parkId": 1,
+    "taskName": "2025 年 7 月综合巡检",
+    "deadline": "7 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2025-07-30",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [501, 502],
+        "itemResults": {
+          "5001": { "status": "normal" },
+          "5002": { "status": "normal" },
+          "5003": { "status": "normal" },
+          "5004": { "status": "normal" },
+          "5005": { "status": "normal" },
+          "5006": { "status": "normal" },
+          "5007": { "status": "normal" },
+          "5008": { "status": "normal" },
+          "5009": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [503, 504],
+        "itemResults": {
+          "5010": { "status": "normal" },
+          "5011": { "status": "normal" },
+          "5012": { "status": "normal" },
+          "5013": { "status": "normal" },
+          "5014": { "status": "normal" },
+          "5015": { "status": "normal" },
+          "5016": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "12": {
+    "id": 12,
+    "parkId": 2,
+    "taskName": "2025 年 6 月综合巡检",
+    "deadline": "6 月 30 日前完成",
+    "status": "completed",
+    "completedAt": "2025-06-27",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "1号仓库",
+        "categoryIds": [201, 202],
+        "itemResults": {
+          "2001": { "status": "normal" },
+          "2002": { "status": "normal" },
+          "2003": { "status": "normal" },
+          "2004": { "status": "normal" },
+          "2005": { "status": "normal" },
+          "2006": { "status": "normal" },
+          "2007": { "status": "normal" },
+          "2008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "2号仓库",
+        "categoryIds": [203],
+        "itemResults": {
+          "2009": { "status": "normal" },
+          "2010": { "status": "normal" },
+          "2011": { "status": "normal" }
+        }
+      },
+      {
+        "id": 3,
+        "name": "综合楼",
+        "categoryIds": [204],
+        "itemResults": {
+          "2012": { "status": "normal" },
+          "2013": { "status": "normal" },
+          "2014": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "13": {
+    "id": 13,
+    "parkId": 3,
+    "taskName": "2025 年 5 月综合巡检",
+    "deadline": "5 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2025-05-29",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [101, 102],
+        "itemResults": {
+          "1001": { "status": "normal" },
+          "1002": { "status": "normal" },
+          "1003": { "status": "normal" },
+          "1004": { "status": "normal" },
+          "1006": { "status": "normal" },
+          "1007": { "status": "normal" },
+          "1008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [111, 112],
+        "itemResults": {
+          "1101": { "status": "normal" },
+          "1102": { "status": "normal" },
+          "1103": { "status": "normal" },
+          "1104": { "status": "normal" },
+          "1105": { "status": "normal" },
+          "1106": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "14": {
+    "id": 14,
+    "parkId": 1,
+    "taskName": "2025 年 4 月消防安全检查",
+    "deadline": "4 月 30 日前完成",
+    "status": "completed",
+    "completedAt": "2025-04-25",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [501, 502],
+        "itemResults": {
+          "5001": { "status": "normal" },
+          "5002": { "status": "normal" },
+          "5003": { "status": "normal" },
+          "5004": { "status": "normal" },
+          "5005": { "status": "normal" },
+          "5006": { "status": "normal" },
+          "5007": { "status": "normal" },
+          "5008": { "status": "normal" },
+          "5009": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [503, 504],
+        "itemResults": {
+          "5010": { "status": "normal" },
+          "5011": { "status": "normal" },
+          "5012": { "status": "normal" },
+          "5013": { "status": "normal" },
+          "5014": { "status": "normal" },
+          "5015": { "status": "normal" },
+          "5016": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "15": {
+    "id": 15,
+    "parkId": 2,
+    "taskName": "2025 年 3 月综合巡检",
+    "deadline": "3 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2025-03-28",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "1号仓库",
+        "categoryIds": [201, 202],
+        "itemResults": {
+          "2001": { "status": "normal" },
+          "2002": { "status": "normal" },
+          "2003": { "status": "normal" },
+          "2004": { "status": "normal" },
+          "2005": { "status": "normal" },
+          "2006": { "status": "normal" },
+          "2007": { "status": "normal" },
+          "2008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "2号仓库",
+        "categoryIds": [203],
+        "itemResults": {
+          "2009": { "status": "normal" },
+          "2010": { "status": "normal" },
+          "2011": { "status": "normal" }
+        }
+      },
+      {
+        "id": 3,
+        "name": "综合楼",
+        "categoryIds": [204],
+        "itemResults": {
+          "2012": { "status": "normal" },
+          "2013": { "status": "normal" },
+          "2014": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "16": {
+    "id": 16,
+    "parkId": 3,
+    "taskName": "2025 年 2 月设备维护巡检",
+    "deadline": "2 月 28 日前完成",
+    "status": "completed",
+    "completedAt": "2025-02-26",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [101, 102],
+        "itemResults": {
+          "1001": { "status": "normal" },
+          "1002": { "status": "normal" },
+          "1003": { "status": "normal" },
+          "1004": { "status": "normal" },
+          "1006": { "status": "normal" },
+          "1007": { "status": "normal" },
+          "1008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [111, 112],
+        "itemResults": {
+          "1101": { "status": "normal" },
+          "1102": { "status": "normal" },
+          "1103": { "status": "normal" },
+          "1104": { "status": "normal" },
+          "1105": { "status": "normal" },
+          "1106": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "17": {
+    "id": 17,
+    "parkId": 1,
+    "taskName": "2025 年 1 月综合巡检",
+    "deadline": "1 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2025-01-29",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [501, 502],
+        "itemResults": {
+          "5001": { "status": "normal" },
+          "5002": { "status": "normal" },
+          "5003": { "status": "normal" },
+          "5004": { "status": "normal" },
+          "5005": { "status": "normal" },
+          "5006": { "status": "normal" },
+          "5007": { "status": "normal" },
+          "5008": { "status": "normal" },
+          "5009": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [503, 504],
+        "itemResults": {
+          "5010": { "status": "normal" },
+          "5011": { "status": "normal" },
+          "5012": { "status": "normal" },
+          "5013": { "status": "normal" },
+          "5014": { "status": "normal" },
+          "5015": { "status": "normal" },
+          "5016": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "18": {
+    "id": 18,
+    "parkId": 2,
+    "taskName": "2024 年 12 月综合巡检",
+    "deadline": "12 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2024-12-27",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "1号仓库",
+        "categoryIds": [201, 202],
+        "itemResults": {
+          "2001": { "status": "normal" },
+          "2002": { "status": "normal" },
+          "2003": { "status": "normal" },
+          "2004": { "status": "normal" },
+          "2005": { "status": "normal" },
+          "2006": { "status": "normal" },
+          "2007": { "status": "normal" },
+          "2008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "2号仓库",
+        "categoryIds": [203],
+        "itemResults": {
+          "2009": { "status": "normal" },
+          "2010": { "status": "normal" },
+          "2011": { "status": "normal" }
+        }
+      },
+      {
+        "id": 3,
+        "name": "综合楼",
+        "categoryIds": [204],
+        "itemResults": {
+          "2012": { "status": "normal" },
+          "2013": { "status": "normal" },
+          "2014": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "19": {
+    "id": 19,
+    "parkId": 3,
+    "taskName": "2024 年 11 月综合巡检",
+    "deadline": "11 月 30 日前完成",
+    "status": "completed",
+    "completedAt": "2024-11-28",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [101, 102],
+        "itemResults": {
+          "1001": { "status": "normal" },
+          "1002": { "status": "normal" },
+          "1003": { "status": "normal" },
+          "1004": { "status": "normal" },
+          "1006": { "status": "normal" },
+          "1007": { "status": "normal" },
+          "1008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [111, 112],
+        "itemResults": {
+          "1101": { "status": "normal" },
+          "1102": { "status": "normal" },
+          "1103": { "status": "normal" },
+          "1104": { "status": "normal" },
+          "1105": { "status": "normal" },
+          "1106": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "20": {
+    "id": 20,
+    "parkId": 1,
+    "taskName": "2024 年 10 月消防安全检查",
+    "deadline": "10 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2024-10-30",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [501, 502],
+        "itemResults": {
+          "5001": { "status": "normal" },
+          "5002": { "status": "normal" },
+          "5003": { "status": "normal" },
+          "5004": { "status": "normal" },
+          "5005": { "status": "normal" },
+          "5006": { "status": "normal" },
+          "5007": { "status": "normal" },
+          "5008": { "status": "normal" },
+          "5009": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [503, 504],
+        "itemResults": {
+          "5010": { "status": "normal" },
+          "5011": { "status": "normal" },
+          "5012": { "status": "normal" },
+          "5013": { "status": "normal" },
+          "5014": { "status": "normal" },
+          "5015": { "status": "normal" },
+          "5016": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "21": {
+    "id": 21,
+    "parkId": 2,
+    "taskName": "2024 年 9 月设备维护巡检",
+    "deadline": "9 月 30 日前完成",
+    "status": "completed",
+    "completedAt": "2024-09-26",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "1号仓库",
+        "categoryIds": [201, 202],
+        "itemResults": {
+          "2001": { "status": "normal" },
+          "2002": { "status": "normal" },
+          "2003": { "status": "normal" },
+          "2004": { "status": "normal" },
+          "2005": { "status": "normal" },
+          "2006": { "status": "normal" },
+          "2007": { "status": "normal" },
+          "2008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "2号仓库",
+        "categoryIds": [203],
+        "itemResults": {
+          "2009": { "status": "normal" },
+          "2010": { "status": "normal" },
+          "2011": { "status": "normal" }
+        }
+      },
+      {
+        "id": 3,
+        "name": "综合楼",
+        "categoryIds": [204],
+        "itemResults": {
+          "2012": { "status": "normal" },
+          "2013": { "status": "normal" },
+          "2014": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "22": {
+    "id": 22,
+    "parkId": 3,
+    "taskName": "2024 年 8 月综合巡检",
+    "deadline": "8 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2024-08-29",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [101, 102],
+        "itemResults": {
+          "1001": { "status": "normal" },
+          "1002": { "status": "normal" },
+          "1003": { "status": "normal" },
+          "1004": { "status": "normal" },
+          "1006": { "status": "normal" },
+          "1007": { "status": "normal" },
+          "1008": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [111, 112],
+        "itemResults": {
+          "1101": { "status": "normal" },
+          "1102": { "status": "normal" },
+          "1103": { "status": "normal" },
+          "1104": { "status": "normal" },
+          "1105": { "status": "normal" },
+          "1106": { "status": "normal" }
+        }
+      }
+    ]
+  },
+  "23": {
+    "id": 23,
+    "parkId": 1,
+    "taskName": "2024 年 7 月综合巡检",
+    "deadline": "7 月 31 日前完成",
+    "status": "completed",
+    "completedAt": "2024-07-30",
+    "inspector": "黄某某",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "categoryIds": [501, 502],
+        "itemResults": {
+          "5001": { "status": "normal" },
+          "5002": { "status": "normal" },
+          "5003": { "status": "normal" },
+          "5004": { "status": "normal" },
+          "5005": { "status": "normal" },
+          "5006": { "status": "normal" },
+          "5007": { "status": "normal" },
+          "5008": { "status": "normal" },
+          "5009": { "status": "normal" }
+        }
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "categoryIds": [503, 504],
+        "itemResults": {
+          "5010": { "status": "normal" },
+          "5011": { "status": "normal" },
           "5012": { "status": "normal" },
           "5013": { "status": "normal" },
           "5014": { "status": "normal" },
