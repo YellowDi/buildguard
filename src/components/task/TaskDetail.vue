@@ -179,18 +179,6 @@ onMounted(async () => {
 
 <template>
   <section class="mx-auto flex h-screen w-full max-w-[430px] flex-col bg-[#EBEBEB]">
-    <!-- Navigation Bar -->
-    <div class="flex items-center gap-3 px-4 pb-1 pt-3">
-      <button
-        type="button"
-        class="flex h-8 w-8 items-center justify-center rounded-lg transition-colors active:bg-black/5"
-        @click="goBack"
-      >
-        <i class="ri-arrow-left-s-line text-[24px] leading-[24px] text-[#171717]" />
-      </button>
-      <h1 class="text-[17px] font-semibold leading-[22px] text-[#171717]">任务详情</h1>
-    </div>
-
     <!-- Scrollable Content -->
     <div class="flex flex-1 flex-col overflow-y-auto px-4">
 
