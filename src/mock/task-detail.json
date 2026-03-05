@@ -11,7 +11,7 @@
       {
         "id": 101,
         "name": "消防安全",
-        "icon": "ri-fire-line",
+        "description": "消防系统是建筑物发生火灾时控制风险、保障人员疏散与减少财产损失的重要安全保障。通过定期检查消防设施完好性、疏散通道通畅情况以及报警与灭火系统的运行状态，可以评估建筑在火灾情况下的应急能力，并及时发现可能影响消防安全的隐患。",
         "items": [
           { "id": 1001, "name": "灭火器有效期检查", "status": "passed" },
           { "id": 1002, "name": "消防栓水压测试", "status": "passed" },
@@ -23,7 +23,7 @@
       {
         "id": 102,
         "name": "电气设备",
-        "icon": "ri-flashlight-line",
+        "description": "电气设备检查涵盖配电系统、线路绝缘与接地保护等关键环节，确保供电安全可靠，预防因电气故障引发的火灾或设备损坏风险。",
         "items": [
           { "id": 1006, "name": "配电柜温度检测", "status": "passed" },
           { "id": 1007, "name": "线缆绝缘检查", "status": "unchecked" },
@@ -34,7 +34,7 @@
       {
         "id": 103,
         "name": "建筑结构",
-        "icon": "ri-building-2-line",
+        "description": "对建筑物的主体结构、外墙、屋面防水及地基沉降等进行检查，评估建筑整体安全性与耐久性，及时发现结构性隐患。",
         "items": [
           { "id": 1010, "name": "外墙裂缝检查", "status": "unchecked" },
           { "id": 1011, "name": "屋顶防水层", "status": "unchecked" },
@@ -45,21 +45,11 @@
       {
         "id": 104,
         "name": "环境卫生",
-        "icon": "ri-leaf-line",
+        "description": "检查园区公共区域清洁度、垃圾分类执行情况及绿化养护状况，维护良好的园区环境与卫生标准。",
         "items": [
           { "id": 1014, "name": "公共区域清洁度", "status": "unchecked" },
           { "id": 1015, "name": "垃圾分类执行情况", "status": "unchecked" },
           { "id": 1016, "name": "绿化带维护", "status": "unchecked" }
-        ]
-      },
-      {
-        "id": 105,
-        "name": "安防监控",
-        "icon": "ri-shield-check-line",
-        "items": [
-          { "id": 1017, "name": "监控摄像头运行状态", "status": "unchecked" },
-          { "id": 1018, "name": "门禁系统功能", "status": "unchecked" },
-          { "id": 1019, "name": "周界报警系统", "status": "unchecked" }
         ]
       }
     ]
@@ -76,7 +66,7 @@
       {
         "id": 201,
         "name": "消防安全",
-        "icon": "ri-fire-line",
+        "description": "消防系统是建筑物发生火灾时控制风险、保障人员疏散与减少财产损失的重要安全保障。通过定期检查消防设施完好性、疏散通道通畅情况以及报警与灭火系统的运行状态，可以评估建筑在火灾情况下的应急能力，并及时发现可能影响消防安全的隐患。",
         "items": [
           { "id": 2001, "name": "灭火器有效期检查", "status": "unchecked" },
           { "id": 2002, "name": "消防栓水压测试", "status": "unchecked" },
@@ -87,7 +77,7 @@
       {
         "id": 202,
         "name": "仓储安全",
-        "icon": "ri-store-2-line",
+        "description": "对货架稳固性、堆垛高度、通道宽度及危险品存储合规性进行检查，保障仓储作业安全与货物完整。",
         "items": [
           { "id": 2005, "name": "货架稳固性检查", "status": "unchecked" },
           { "id": 2006, "name": "堆垛高度合规", "status": "unchecked" },
@@ -98,7 +88,7 @@
       {
         "id": 203,
         "name": "电气设备",
-        "icon": "ri-flashlight-line",
+        "description": "电气设备检查涵盖配电系统、线路绝缘与接地保护等关键环节，确保供电安全可靠，预防因电气故障引发的火灾或设备损坏风险。",
         "items": [
           { "id": 2009, "name": "配电柜温度检测", "status": "unchecked" },
           { "id": 2010, "name": "线缆绝缘检查", "status": "unchecked" },
@@ -108,7 +98,7 @@
       {
         "id": 204,
         "name": "环境卫生",
-        "icon": "ri-leaf-line",
+        "description": "检查园区公共区域清洁度、垃圾分类执行情况及绿化养护状况，维护良好的园区环境与卫生标准。",
         "items": [
           { "id": 2012, "name": "装卸区清洁度", "status": "unchecked" },
           { "id": 2013, "name": "排水系统检查", "status": "unchecked" },
@@ -130,7 +120,7 @@
       {
         "id": 501,
         "name": "消防安全",
-        "icon": "ri-fire-line",
+        "description": "消防系统是建筑物发生火灾时控制风险、保障人员疏散与减少财产损失的重要安全保障。通过定期检查消防设施完好性、疏散通道通畅情况以及报警与灭火系统的运行状态，可以评估建筑在火灾情况下的应急能力，并及时发现可能影响消防安全的隐患。",
         "items": [
           { "id": 5001, "name": "灭火器有效期检查", "status": "passed" },
           { "id": 5002, "name": "消防栓水压测试", "status": "passed" },
@@ -142,7 +132,7 @@
       {
         "id": 502,
         "name": "电气设备",
-        "icon": "ri-flashlight-line",
+        "description": "电气设备检查涵盖配电系统、线路绝缘与接地保护等关键环节，确保供电安全可靠，预防因电气故障引发的火灾或设备损坏风险。",
         "items": [
           { "id": 5006, "name": "配电柜温度检测", "status": "passed" },
           { "id": 5007, "name": "线缆绝缘检查", "status": "passed" },
@@ -153,7 +143,7 @@
       {
         "id": 503,
         "name": "建筑结构",
-        "icon": "ri-building-2-line",
+        "description": "对建筑物的主体结构、外墙、屋面防水及地基沉降等进行检查，评估建筑整体安全性与耐久性，及时发现结构性隐患。",
         "items": [
           { "id": 5010, "name": "外墙裂缝检查", "status": "passed" },
           { "id": 5011, "name": "屋顶防水层", "status": "failed", "remark": "A1栋屋顶防水层老化，建议下次维护周期更换" },
@@ -164,21 +154,11 @@
       {
         "id": 504,
         "name": "环境卫生",
-        "icon": "ri-leaf-line",
+        "description": "检查园区公共区域清洁度、垃圾分类执行情况及绿化养护状况，维护良好的园区环境与卫生标准。",
         "items": [
           { "id": 5014, "name": "公共区域清洁度", "status": "passed" },
           { "id": 5015, "name": "垃圾分类执行情况", "status": "passed" },
           { "id": 5016, "name": "绿化带维护", "status": "passed" }
-        ]
-      },
-      {
-        "id": 505,
-        "name": "安防监控",
-        "icon": "ri-shield-check-line",
-        "items": [
-          { "id": 5017, "name": "监控摄像头运行状态", "status": "passed" },
-          { "id": 5018, "name": "门禁系统功能", "status": "passed" },
-          { "id": 5019, "name": "周界报警系统", "status": "passed" }
         ]
       }
     ]

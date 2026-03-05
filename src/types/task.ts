@@ -27,12 +27,15 @@ export interface CheckItem {
   name: string
   status: CheckItemStatus
   remark?: string
+  photos?: string[]
+  description?: string
+  impact?: string
 }
 
 export interface InspectionCategory {
   id: number
   name: string
-  icon: string
+  description?: string
   items: CheckItem[]
 }
 

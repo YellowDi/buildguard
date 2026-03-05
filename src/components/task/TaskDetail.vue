@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { TaskDetail, InspectionCategory } from '../../types/task'
+import type { TaskDetail, InspectionCategory, CheckItem, CheckItemStatus } from '../../types/task'
 import { fetchTaskDetail } from '../../api/task'
+import InspectionSheet from './InspectionSheet.vue'
 
 const route = useRoute()
 const router = useRouter()
 
 const task = ref<TaskDetail | null>(null)
 const expandedCategoryId = ref<number | null>(null)
+const sheetVisible = ref(false)
+const activeItem = ref<CheckItem | null>(null)
 
 const taskId = computed(() => Number(route.params.id))
 
@@ -36,21 +39,21 @@ const statusLabel = computed(() => {
   }
 })
 
-const statusColor = computed(() => {
-  if (!task.value) return {}
-  switch (task.value.status) {
-    case 'active': return { icon: 'text-[#171717]', bg: 'bg-white border border-[#EBEBEB]' }
-    case 'pending': return { icon: 'text-[#FA7319]', bg: 'bg-white border border-[#EBEBEB]' }
-    case 'completed': return { icon: 'text-[#1FC16B]', bg: 'bg-white border border-[#EBEBEB]' }
-  }
-})
-
 const statusIcon = computed(() => {
   if (!task.value) return ''
   switch (task.value.status) {
     case 'active': return 'ri-loader-2-line'
     case 'pending': return 'ri-time-fill'
     case 'completed': return 'ri-checkbox-circle-fill'
+  }
+})
+
+const statusIconColor = computed(() => {
+  if (!task.value) return ''
+  switch (task.value.status) {
+    case 'active': return 'text-[#171717]'
+    case 'pending': return 'text-[#FA7319]'
+    case 'completed': return 'text-[#1FC16B]'
   }
 })
 
@@ -61,25 +64,98 @@ function toggleCategory(cat: InspectionCategory) {
 function categoryStats(cat: InspectionCategory) {
   const total = cat.items.length
   const done = cat.items.filter(i => i.status !== 'unchecked').length
-  const failed = cat.items.filter(i => i.status === 'failed').length
-  return { total, done, failed }
+  return { total, done }
+}
+
+function itemResultLabel(status: string) {
+  switch (status) {
+    case 'passed': return '正常'
+    case 'failed': return '异常'
+    default: return ''
+  }
+}
+
+function openSheet(item: CheckItem) {
+  activeItem.value = item
+  sheetVisible.value = true
+}
+
+function closeSheet() {
+  sheetVisible.value = false
+}
+
+function onSheetSave(payload: { status: CheckItemStatus; photos: string[]; description: string; impact: string }) {
+  if (activeItem.value) {
+    activeItem.value.status = payload.status
+    activeItem.value.photos = payload.photos
+    activeItem.value.description = payload.description
+    activeItem.value.impact = payload.impact
+  }
+  sheetVisible.value = false
 }
 
 function goBack() {
   router.push('/')
 }
 
+function onExpandEnter(el: Element, done: () => void) {
+  const element = el as HTMLElement
+  element.style.overflow = 'hidden'
+  element.style.height = '0'
+  element.style.opacity = '0'
+  element.offsetHeight
+  element.style.transition = 'height 280ms cubic-bezier(0.25,0.1,0.25,1), opacity 200ms ease 40ms'
+  element.style.height = `${element.scrollHeight}px`
+  element.style.opacity = '1'
+  element.addEventListener('transitionend', function handler(e: TransitionEvent) {
+    if (e.propertyName === 'height') {
+      element.removeEventListener('transitionend', handler)
+      done()
+    }
+  })
+}
+
+function onExpandAfterEnter(el: Element) {
+  const element = el as HTMLElement
+  element.style.transition = ''
+  element.style.height = ''
+  element.style.overflow = ''
+  element.style.opacity = ''
+}
+
+function onExpandLeave(el: Element, done: () => void) {
+  const element = el as HTMLElement
+  element.style.overflow = 'hidden'
+  element.style.height = `${element.scrollHeight}px`
+  element.style.opacity = '1'
+  element.offsetHeight
+  element.style.transition = 'height 220ms cubic-bezier(0.25,0.1,0.25,1), opacity 160ms ease'
+  element.style.height = '0'
+  element.style.opacity = '0'
+  element.addEventListener('transitionend', function handler(e: TransitionEvent) {
+    if (e.propertyName === 'height') {
+      element.removeEventListener('transitionend', handler)
+      done()
+    }
+  })
+}
+
+function onExpandAfterLeave(el: Element) {
+  const element = el as HTMLElement
+  element.style.transition = ''
+  element.style.height = ''
+  element.style.overflow = ''
+  element.style.opacity = ''
+}
+
 onMounted(async () => {
   task.value = await fetchTaskDetail(taskId.value)
-  if (task.value?.categories.length) {
-    expandedCategoryId.value = task.value.categories[0].id
-  }
 })
 </script>
 
 <template>
-  <section class="detail-section mx-auto flex h-screen w-full max-w-[430px] flex-col bg-[#EBEBEB]">
-    <!-- Top Navigation -->
+  <section class="mx-auto flex h-screen w-full max-w-[430px] flex-col bg-[#EBEBEB]">
+    <!-- Navigation Bar -->
     <div class="flex items-center gap-3 px-4 pb-1 pt-3">
       <button
         type="button"
@@ -92,54 +168,57 @@ onMounted(async () => {
     </div>
 
     <!-- Scrollable Content -->
-    <div class="flex flex-1 flex-col gap-4 overflow-y-auto px-4 pb-6 pt-4">
+    <div class="flex flex-1 flex-col overflow-y-auto px-4">
 
       <!-- Task Info Card -->
-      <div v-if="task" class="card-shadow flex flex-col gap-4 rounded-xl bg-white p-4">
-        <div class="flex items-start justify-between gap-3">
+      <div v-if="task" class="card-shadow mt-4 flex flex-col rounded-xl bg-white p-4">
+        <!-- Title Row -->
+        <div class="flex items-start">
           <div class="flex min-w-0 flex-1 flex-col">
-            <span class="text-[18px] font-semibold leading-[26px] text-[#171717]">
+            <!-- parkName: font_2:03875 = 16px Medium, paint_2:1736 = #171717 -->
+            <span class="text-[16px] font-medium leading-[24px] text-[#171717]">
               {{ task.parkName }}
             </span>
-            <span class="mt-0.5 text-[14px] leading-[20px] text-[#5C5C5C]">
+            <!-- taskName: font_3:03453 = 13px Regular, paint_2:2909 = #5C5C5C -->
+            <span class="text-[13px] leading-[20px] text-[#5C5C5C]">
               {{ task.taskName }}
             </span>
           </div>
-          <div
-            class="flex shrink-0 items-center gap-1 rounded-[6px] px-1.5 py-1"
-            :class="statusColor?.bg"
-          >
-            <i :class="[statusIcon, 'text-[16px] leading-[16px]', statusColor?.icon]" />
-            <span class="pr-0.5 text-[12px] font-medium leading-[16px] text-[#5C5C5C]">
+          <!-- Status Badge -->
+          <div class="flex shrink-0 items-center gap-1 rounded-[6px] border border-[#EBEBEB] bg-white px-1 py-1">
+            <i :class="[statusIcon, 'text-[16px] leading-[16px]', statusIconColor]" />
+            <!-- font_2:1771 = 12px Medium, paint_2:2909 = #5C5C5C -->
+            <span class="pr-1 text-[12px] font-medium leading-[16px] text-[#5C5C5C]">
               {{ statusLabel }}
             </span>
           </div>
         </div>
 
-        <div class="flex flex-col gap-2">
+        <!-- Key Fields -->
+        <div class="mt-4 flex flex-col gap-2">
+          <!-- Address: map-pin-line 20x20, text 14px Medium #5C5C5C -->
           <div class="flex items-center gap-2">
-            <i class="ri-map-pin-line text-[16px] leading-[16px] text-[#A3A3A3]" />
-            <span class="text-[13px] leading-[18px] text-[#5C5C5C]">{{ task.address }}</span>
+            <i class="ri-map-pin-line text-[20px] leading-[20px] text-[#A3A3A3]" />
+            <span class="text-[14px] font-medium leading-[20px] text-[#5C5C5C]">{{ task.address }}</span>
           </div>
+          <!-- Deadline: calendar-line 20x20, text 14px Medium #5C5C5C -->
           <div class="flex items-center gap-2">
-            <i class="ri-calendar-line text-[16px] leading-[16px] text-[#A3A3A3]" />
-            <span class="text-[13px] leading-[18px] text-[#5C5C5C]">{{ task.deadline }}</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <i class="ri-user-3-line text-[16px] leading-[16px] text-[#A3A3A3]" />
-            <span class="text-[13px] leading-[18px] text-[#5C5C5C]">巡检人：{{ task.inspector }}</span>
+            <i class="ri-calendar-line text-[20px] leading-[20px] text-[#A3A3A3]" />
+            <span class="text-[14px] font-medium leading-[20px] text-[#5C5C5C]">{{ task.deadline }}</span>
           </div>
         </div>
 
         <!-- Progress Bar -->
-        <div class="flex flex-col gap-1.5">
+        <div class="mt-4 flex flex-col gap-1.5">
           <div class="flex items-center justify-between">
-            <span class="text-[13px] font-medium leading-[18px] text-[#5C5C5C]">巡检进度</span>
-            <span class="text-[13px] font-medium tabular-nums leading-[18px] text-[#171717]">
-              {{ checkedItems }}/{{ totalItems }}
+            <!-- font_2:1735 = 14px Medium, paint_2:1736 = #171717 -->
+            <span class="text-[14px] font-medium leading-[20px] text-[#171717]">巡检进度</span>
+            <!-- font_2:07947 = 12px Regular, paint_2:2909 = #5C5C5C -->
+            <span class="text-[12px] tabular-nums leading-[16px] text-[#5C5C5C]">
+              {{ checkedItems }} / {{ totalItems }}
             </span>
           </div>
-          <div class="h-2 w-full overflow-hidden rounded-full bg-[#F0F0F0]">
+          <div class="h-1.5 w-full overflow-hidden rounded-full bg-[#EBEBEB]">
             <div
               class="h-full rounded-full transition-all duration-500 ease-out"
               :class="progressPercent === 100 ? 'bg-[#1FC16B]' : 'bg-[#171717]'"
@@ -149,10 +228,30 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Inspection Categories -->
-      <div v-if="task" class="flex flex-col gap-3">
-        <h2 class="text-[15px] font-semibold leading-[20px] text-[rgba(60,60,67,0.6)]">巡检项目</h2>
+      <!-- Action Buttons -->
+      <div v-if="task" class="mt-4 flex gap-2">
+        <button
+          type="button"
+          class="flex h-10 flex-1 items-center justify-center rounded-md bg-[rgba(0,0,0,0.05)]"
+        >
+          <span class="text-[14px] font-medium leading-[20px] text-[#5C5C5C]">导航过去</span>
+        </button>
+        <button
+          type="button"
+          class="flex h-10 flex-1 items-center justify-center rounded-md bg-[rgba(0,0,0,0.05)]"
+        >
+          <span class="text-[14px] font-medium leading-[20px] text-[#5C5C5C]">电话联系</span>
+        </button>
+      </div>
 
+      <!-- Segment Divider -->
+      <div v-if="task" class="segment-divider my-4 shrink-0" />
+
+      <!-- Section Title: font_2:1777 = 16px Bold, paint_2:1736 = #171717 -->
+      <h2 v-if="task" class="text-[16px] font-bold leading-[24px] text-[#171717]">巡检项目</h2>
+
+      <!-- Inspection Category Accordions -->
+      <div v-if="task" class="mt-4 flex flex-col gap-4 pb-8">
         <div
           v-for="cat in task.categories"
           :key="cat.id"
@@ -161,64 +260,79 @@ onMounted(async () => {
           <!-- Category Header -->
           <button
             type="button"
-            class="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors active:bg-black/[0.02]"
+            class="flex w-full px-4 text-left transition-colors active:bg-black/[0.02]"
+            :class="expandedCategoryId === cat.id ? 'flex-col pt-4 pb-4' : 'h-[56px] items-center'"
             @click="toggleCategory(cat)"
           >
-            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-[#F5F5F5]">
-              <i :class="[cat.icon, 'text-[18px] leading-[18px] text-[#171717]']" />
-            </div>
-            <div class="flex min-w-0 flex-1 flex-col">
-              <span class="text-[15px] font-medium leading-[20px] text-[#171717]">{{ cat.name }}</span>
-              <span class="text-[12px] leading-[16px] text-[#A3A3A3]">
+            <div class="flex w-full items-baseline gap-2">
+              <span class="text-[16px] font-medium leading-[24px] text-[#171717]">{{ cat.name }}</span>
+              <span class="min-w-0 flex-1 text-[13px] leading-[20px] text-[#5C5C5C]">
                 {{ categoryStats(cat).done }}/{{ categoryStats(cat).total }} 已检查
-                <template v-if="categoryStats(cat).failed > 0">
-                  · <span class="text-[#E5484D]">{{ categoryStats(cat).failed }} 异常</span>
-                </template>
               </span>
+              <i
+                class="ri-arrow-down-s-line shrink-0 self-center text-[22px] leading-[22px] text-[#A3A3A3] transition-transform duration-300 ease-out"
+                :class="expandedCategoryId === cat.id ? 'rotate-180' : ''"
+              />
             </div>
-            <i
-              class="ri-arrow-down-s-line text-[20px] leading-[20px] text-[#A3A3A3] transition-transform duration-200"
-              :class="expandedCategoryId === cat.id ? 'rotate-180' : ''"
-            />
+            <p
+              v-if="expandedCategoryId === cat.id && cat.description"
+              class="mt-1 text-[13px] leading-[20px] text-[#5C5C5C]"
+            >
+              {{ cat.description }}
+            </p>
           </button>
 
           <!-- Category Items (expandable) -->
-          <Transition name="expand">
-            <div v-if="expandedCategoryId === cat.id" class="border-t border-[#F0F0F0]">
+          <Transition
+            :css="false"
+            @enter="onExpandEnter"
+            @after-enter="onExpandAfterEnter"
+            @leave="onExpandLeave"
+            @after-leave="onExpandAfterLeave"
+          >
+            <div v-if="expandedCategoryId === cat.id">
+              <div class="mx-4 h-px bg-[rgba(0,0,0,0.1)]" />
+
               <div
                 v-for="(item, idx) in cat.items"
                 :key="item.id"
-                class="flex items-start gap-3 px-4 py-3"
-                :class="idx > 0 ? 'border-t border-[#F5F5F5]' : ''"
+                class="mx-4"
               >
-                <div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
-                  <i
-                    v-if="item.status === 'passed'"
-                    class="ri-checkbox-circle-fill text-[20px] leading-[20px] text-[#1FC16B]"
-                  />
-                  <i
-                    v-else-if="item.status === 'failed'"
-                    class="ri-close-circle-fill text-[20px] leading-[20px] text-[#E5484D]"
-                  />
-                  <div
-                    v-else
-                    class="h-[18px] w-[18px] rounded-full border-2 border-[#D4D4D4]"
-                  />
-                </div>
-                <div class="flex min-w-0 flex-1 flex-col">
-                  <span
-                    class="text-[14px] leading-[20px]"
-                    :class="item.status === 'unchecked' ? 'text-[#5C5C5C]' : 'text-[#171717]'"
-                  >
+                <div v-if="idx > 0" class="segment-divider" />
+                <button
+                  type="button"
+                  class="flex h-[54px] w-full items-center gap-2 text-left transition-colors active:bg-black/[0.02]"
+                  @click="openSheet(item)"
+                >
+                  <div class="flex h-5 w-5 shrink-0 items-center justify-center">
+                    <i
+                      v-if="item.status === 'passed'"
+                      class="ri-checkbox-circle-fill text-[20px] leading-[20px] text-[#1FC16B]"
+                    />
+                    <i
+                      v-else-if="item.status === 'failed'"
+                      class="ri-close-circle-fill text-[20px] leading-[20px] text-[#E5484D]"
+                    />
+                    <div
+                      v-else
+                      class="h-[18px] w-[18px] rounded-full border-2 border-[#D4D4D4]"
+                    />
+                  </div>
+
+                  <span class="min-w-0 flex-1 truncate text-[14px] leading-[20px] text-[#171717]">
                     {{ item.name }}
                   </span>
+
                   <span
-                    v-if="item.remark"
-                    class="mt-1 text-[12px] leading-[16px] text-[#E5484D]"
+                    v-if="item.status !== 'unchecked'"
+                    class="shrink-0 text-[13px] leading-[20px]"
+                    :class="item.status === 'failed' ? 'text-[#E5484D]' : 'text-[#5C5C5C]'"
                   >
-                    {{ item.remark }}
+                    {{ itemResultLabel(item.status) }}
                   </span>
-                </div>
+
+                  <i class="ri-arrow-right-s-line shrink-0 text-[20px] leading-[20px] text-[#A3A3A3]" />
+                </button>
               </div>
             </div>
           </Transition>
@@ -235,19 +349,17 @@ onMounted(async () => {
 
     </div>
 
-    <!-- Bottom Action (for active tasks) -->
-    <div v-if="task?.status === 'active'" class="border-t border-[#EBEBEB] bg-white px-4 pb-8 pt-3">
-      <button
-        type="button"
-        class="flex w-full items-center justify-center rounded-xl bg-[#262626] py-3"
-      >
-        <span class="text-[15px] font-medium leading-[20px] text-white">继续巡检</span>
-      </button>
-    </div>
+    <InspectionSheet
+      :visible="sheetVisible"
+      :item="activeItem"
+      @close="closeSheet"
+      @save="onSheetSave"
+    />
   </section>
 </template>
 
 <style scoped>
+/* token: card-shadow/medium */
 .card-shadow {
   box-shadow:
     0px 0px 0px 1px rgba(23, 23, 23, 0.08),
@@ -259,21 +371,15 @@ onMounted(async () => {
     inset 0px -1px 1px -0.5px rgba(23, 23, 23, 0.06);
 }
 
-.expand-enter-active,
-.expand-leave-active {
-  transition: all 200ms ease;
-  overflow: hidden;
+.segment-divider {
+  height: 1px;
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.1) 0,
+    rgba(0, 0, 0, 0.1) 4px,
+    transparent 4px,
+    transparent 8px
+  );
 }
 
-.expand-enter-from,
-.expand-leave-to {
-  opacity: 0;
-  max-height: 0;
-}
-
-.expand-enter-to,
-.expand-leave-from {
-  opacity: 1;
-  max-height: 600px;
-}
 </style>
