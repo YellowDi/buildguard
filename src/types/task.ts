@@ -6,6 +6,7 @@ export interface Task {
   taskName: string
   address?: string
   deadline?: string
+  completedAt?: string
   status: TaskStatus
 }
 
