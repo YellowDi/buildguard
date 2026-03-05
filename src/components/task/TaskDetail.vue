@@ -271,13 +271,13 @@ onMounted(async () => {
             :class="expandedCategoryIds.includes(cat.id) ? 'flex-col pt-4 pb-4' : 'h-[56px] items-center'"
             @click="toggleCategory(cat)"
           >
-            <div class="flex w-full items-baseline gap-2">
+            <div class="flex w-full items-center gap-2">
               <span class="text-[16px] font-medium leading-[24px] text-[#171717]">{{ cat.name }}</span>
               <span class="min-w-0 flex-1 text-[13px] leading-[20px] text-[#5C5C5C]">
                 {{ categoryStats(cat).done }}/{{ categoryStats(cat).total }} 已检查
               </span>
               <i
-                class="ri-arrow-down-s-line shrink-0 self-center text-[22px] leading-[22px] text-[#A3A3A3] transition-transform duration-300 ease-out"
+                class="ri-arrow-down-s-line shrink-0 text-[22px] leading-[22px] text-[#A3A3A3] transition-transform duration-300 ease-out"
                 :class="expandedCategoryIds.includes(cat.id) ? 'rotate-180' : ''"
               />
             </div>
