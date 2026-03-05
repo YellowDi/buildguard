@@ -12,7 +12,7 @@ const emit = defineEmits<{
   (e: 'save', payload: { status: CheckItemStatus; photos: string[]; description: string; impact: string }): void
 }>()
 
-const selectedStatus = ref<CheckItemStatus>('passed')
+const selectedStatus = ref<CheckItemStatus>('normal')
 const photos = ref<string[]>([])
 const description = ref('')
 const impact = ref('')
@@ -49,7 +49,7 @@ watch(() => props.visible, (val) => {
   if (val) {
     lockBodyScroll()
     if (props.item) {
-      selectedStatus.value = props.item.status === 'unchecked' ? 'passed' : props.item.status
+      selectedStatus.value = props.item.status === 'unchecked' ? 'normal' : props.item.status
       photos.value = props.item.photos ? [...props.item.photos] : []
       description.value = props.item.description ?? ''
       impact.value = props.item.impact ?? ''
@@ -138,25 +138,36 @@ function handleSave() {
             <div class="flex gap-2">
               <button
                 type="button"
-                class="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg border transition-all duration-200"
-                :class="selectedStatus === 'passed'
+                class="flex h-10 flex-1 items-center justify-center gap-1 rounded-lg border transition-all duration-200"
+                :class="selectedStatus === 'normal'
                   ? 'border-[#1FC16B] bg-[#F0FDF4] text-[#1FC16B]'
                   : 'border-[#E5E5E5] bg-white text-[#5C5C5C]'"
-                @click="selectedStatus = 'passed'"
+                @click="selectedStatus = 'normal'"
               >
                 <i class="ri-checkbox-circle-fill text-[18px] leading-[18px]" />
-                <span class="text-[14px] font-medium leading-[20px]">正常</span>
+                <span class="text-[13px] font-medium leading-[20px]">一切正常</span>
               </button>
               <button
                 type="button"
-                class="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg border transition-all duration-200"
-                :class="selectedStatus === 'failed'
+                class="flex h-10 flex-1 items-center justify-center gap-1 rounded-lg border transition-all duration-200"
+                :class="selectedStatus === 'focus'
+                  ? 'border-[#FA7319] bg-[#FFF7ED] text-[#FA7319]'
+                  : 'border-[#E5E5E5] bg-white text-[#5C5C5C]'"
+                @click="selectedStatus = 'focus'"
+              >
+                <i class="ri-alert-line text-[18px] leading-[18px]" />
+                <span class="text-[13px] font-medium leading-[20px]">需重点关注</span>
+              </button>
+              <button
+                type="button"
+                class="flex h-10 flex-1 items-center justify-center gap-1 rounded-lg border transition-all duration-200"
+                :class="selectedStatus === 'risk'
                   ? 'border-[#E5484D] bg-[#FEF2F2] text-[#E5484D]'
                   : 'border-[#E5E5E5] bg-white text-[#5C5C5C]'"
-                @click="selectedStatus = 'failed'"
+                @click="selectedStatus = 'risk'"
               >
-                <i class="ri-close-circle-fill text-[18px] leading-[18px]" />
-                <span class="text-[14px] font-medium leading-[20px]">异常</span>
+                <i class="ri-error-warning-fill text-[18px] leading-[18px]" />
+                <span class="text-[13px] font-medium leading-[20px]">存在风险</span>
               </button>
             </div>
           </div>

@@ -69,8 +69,27 @@ function categoryStats(cat: InspectionCategory) {
 
 function itemResultLabel(status: string) {
   switch (status) {
-    case 'passed': return '正常'
-    case 'failed': return '异常'
+    case 'normal': return '一切正常'
+    case 'focus': return '需重点关注'
+    case 'risk': return '存在风险'
+    default: return ''
+  }
+}
+
+function itemStatusColor(status: string) {
+  switch (status) {
+    case 'normal': return 'text-[#1FC16B]'
+    case 'focus': return 'text-[#FA7319]'
+    case 'risk': return 'text-[#E5484D]'
+    default: return 'text-[#5C5C5C]'
+  }
+}
+
+function itemStatusIcon(status: string) {
+  switch (status) {
+    case 'normal': return 'ri-checkbox-circle-fill'
+    case 'focus': return 'ri-alert-line'
+    case 'risk': return 'ri-error-warning-fill'
     default: return ''
   }
 }
@@ -306,12 +325,8 @@ onMounted(async () => {
                 >
                   <div class="flex h-5 w-5 shrink-0 items-center justify-center">
                     <i
-                      v-if="item.status === 'passed'"
-                      class="ri-checkbox-circle-fill text-[20px] leading-[20px] text-[#1FC16B]"
-                    />
-                    <i
-                      v-else-if="item.status === 'failed'"
-                      class="ri-close-circle-fill text-[20px] leading-[20px] text-[#E5484D]"
+                      v-if="item.status !== 'unchecked'"
+                      :class="[itemStatusIcon(item.status), 'text-[20px] leading-[20px]', itemStatusColor(item.status)]"
                     />
                     <div
                       v-else
@@ -326,7 +341,7 @@ onMounted(async () => {
                   <span
                     v-if="item.status !== 'unchecked'"
                     class="shrink-0 text-[13px] leading-[20px]"
-                    :class="item.status === 'failed' ? 'text-[#E5484D]' : 'text-[#5C5C5C]'"
+                    :class="itemStatusColor(item.status)"
                   >
                     {{ itemResultLabel(item.status) }}
                   </span>

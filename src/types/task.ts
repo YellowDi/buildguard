@@ -20,7 +20,7 @@ export interface TaskListData {
   sections: TaskSection[]
 }
 
-export type CheckItemStatus = 'passed' | 'failed' | 'unchecked'
+export type CheckItemStatus = 'normal' | 'focus' | 'risk' | 'unchecked'
 
 export interface CheckItem {
   id: number
