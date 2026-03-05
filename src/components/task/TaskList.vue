@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, nextTick, onBeforeUnmount } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import type { TaskSection } from '../../types/task'
 import { fetchTaskList } from '../../api/task'
 import UserCard from '../user/UserCard.vue'
 
+const route = useRoute()
 const router = useRouter()
+
+const pageTitle = computed(() => (route.meta?.title as string) || '任务工作台')
 
 const sections = ref<TaskSection[]>([])
 
@@ -90,7 +93,7 @@ onBeforeUnmount(() => {
     <div
       class="task-nav flex items-center px-4 pb-1 pt-3"
     >
-      <h1 class="text-[24px] font-bold leading-[32px] text-[#171717]">任务工作台</h1>
+      <h1 class="text-[24px] font-bold leading-[32px] text-[#171717]">{{ pageTitle }}</h1>
     </div>
 
     <!-- Scrollable Content -->
