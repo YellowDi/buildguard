@@ -95,7 +95,14 @@ onBeforeUnmount(() => {
 
       <!-- 顶部：左侧 logo 位，右侧用户卡片 -->
       <div class="flex items-center justify-between px-4 pt-3">
-        <div class="min-w-0 flex-1" />
+        <div class="min-w-0 flex-1 flex items-center gap-2">
+          <!-- Logo 占位：正方形渐变块，后续可替换为正式 logo 图片 -->
+          <div
+            class="h-10 w-10 flex-shrink-0 rounded-lg bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900 shadow-sm"
+            title="BuildGuard"
+          />
+          <span class="text-base font-semibold text-[#171717] dark:text-[#E5E5E5] truncate">BuildGuard</span>
+        </div>
         <UserCard name="黄某某" :completed-count="completedCount" />
       </div>
 
