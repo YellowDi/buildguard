@@ -272,14 +272,6 @@ function formatCompletedAt(completedAt: string | undefined): string {
                       <div v-if="entry.building.name !== '园区整体'" class="text-[12px] leading-[18px] text-[#5C5C5C] dark:text-[#A3A3A3] mt-0.5">
                         {{ entry.building.name }} · {{ entry.cat.name }}
                       </div>
-                      <div
-                        v-if="(entry.item.description || entry.item.impact) && (entry.item.status === 'risk' || entry.item.status === 'focus')"
-                        class="mt-1.5 rounded-md bg-black/[0.04] dark:bg-white/[0.06] px-2 py-1.5 text-[12px] leading-[18px] text-[#5C5C5C] dark:text-[#A3A3A3] line-clamp-2"
-                      >
-                        <template v-if="entry.item.description">描述：{{ entry.item.description }}</template>
-                        <template v-if="entry.item.description && entry.item.impact">；</template>
-                        <template v-if="entry.item.impact">影响：{{ entry.item.impact }}</template>
-                      </div>
                     </div>
                     <i class="ri-arrow-right-s-line shrink-0 text-[18px] leading-[18px] text-[#A3A3A3]" />
                   </div>
