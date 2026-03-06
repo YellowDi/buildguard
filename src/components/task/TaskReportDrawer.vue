@@ -265,13 +265,14 @@ function formatCompletedAt(completedAt: string | undefined): string {
             <div
               v-for="group in byRiskGroups"
               :key="group.key"
-              class="rounded-xl border border-[#EBEBEB] dark:border-white/10 overflow-hidden"
-              :class="group.key === 'risk' ? 'border-[#E5484D]/30 dark:border-[#E5484D]/40' : group.key === 'focus' ? 'border-[#FA7319]/30 dark:border-[#FA7319]/40' : ''"
+              class="rounded-xl border px-1 pb-1"
+              :class="[
+                group.key === 'risk' ? 'border-[#E5484D]/30 dark:border-[#E5484D]/40 bg-[#FEF2F2] dark:bg-[#E5484D]/15' : '',
+                group.key === 'focus' ? 'border-[#FA7319]/30 dark:border-[#FA7319]/40 bg-[#FFF7ED] dark:bg-[#FA7319]/15' : '',
+                group.key === 'normal' ? 'border-[#EBEBEB] dark:border-white/10 bg-[#F0FDF4] dark:bg-[#1FC16B]/15' : ''
+              ]"
             >
-              <div
-                class="flex items-center justify-between px-3 py-2.5 border-b border-[#EBEBEB] dark:border-white/10"
-                :class="group.key === 'risk' ? 'bg-[#FEF2F2] dark:bg-[#E5484D]/15' : group.key === 'focus' ? 'bg-[#FFF7ED] dark:bg-[#FA7319]/15' : 'bg-[#F0FDF4] dark:bg-[#1FC16B]/15'"
-              >
+              <div class="flex items-center justify-between px-3 py-2.5">
                 <span
                   class="text-[14px] font-semibold leading-[20px]"
                   :class="group.key === 'risk' ? 'text-[#E5484D]' : group.key === 'focus' ? 'text-[#FA7319]' : 'text-[#1FC16B]'"
@@ -282,16 +283,16 @@ function formatCompletedAt(completedAt: string | undefined): string {
                   {{ group.count }} 项
                 </span>
               </div>
-              <ul class="divide-y divide-[#EBEBEB] dark:divide-white/10">
+              <ul class="report-risk-inner divide-y divide-[#EBEBEB] dark:divide-white/10 rounded-lg bg-white dark:bg-[#262626] overflow-hidden">
                 <li
                   v-for="(entry, idx) in group.items"
                   :key="`${entry.building.id}-${entry.item.id}-${idx}`"
                   class="cursor-pointer px-3 py-2.5 transition-colors active:bg-black/[0.03] dark:active:bg-white/[0.06]"
                   @click="openItemDetail(entry)"
                 >
-                  <div class="flex items-start gap-2">
+                  <div class="flex items-center gap-2">
                     <i
-                      :class="[itemStatusIcon(entry.item.status), 'text-[16px] leading-[16px] shrink-0 mt-0.5', itemStatusColor(entry.item.status)]"
+                      :class="[itemStatusIcon(entry.item.status), 'text-[16px] leading-[16px] shrink-0', itemStatusColor(entry.item.status)]"
                     />
                     <div class="min-w-0 flex-1">
                       <div class="text-[14px] font-medium leading-[20px] text-[#171717] dark:text-[#E5E5E5]">
@@ -309,7 +310,7 @@ function formatCompletedAt(completedAt: string | undefined): string {
                         <template v-if="entry.item.impact">影响：{{ entry.item.impact }}</template>
                       </div>
                     </div>
-                    <i class="ri-arrow-right-s-line shrink-0 text-[18px] leading-[18px] text-[#A3A3A3] mt-0.5" />
+                    <i class="ri-arrow-right-s-line shrink-0 text-[18px] leading-[18px] text-[#A3A3A3]" />
                   </div>
                 </li>
                 <li v-if="group.items.length === 0" class="px-3 py-4 text-center text-[13px] text-[#A3A3A3]">
@@ -335,6 +336,13 @@ function formatCompletedAt(completedAt: string | undefined): string {
 .report-overlay {
   touch-action: none;
   overflow: hidden;
+}
+
+.report-risk-inner {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.dark .report-risk-inner {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
 .overlay-enter-active {
