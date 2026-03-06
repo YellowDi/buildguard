@@ -18,7 +18,10 @@ const completedCount = computed(() => completedSection.value?.tasks.length ?? 0)
 
 const scrollEl = ref<HTMLElement | null>(null)
 const sentinel = ref<HTMLElement | null>(null)
+const archiveSentinel = ref<HTMLElement | null>(null)
 const isStuck = ref(false)
+/** 归档区域是否进入视口，用于懒渲染以减轻首屏压力 */
+const archivedInView = ref(false)
 
 const showParkFilter = ref(false)
 const showPlannedDrawer = ref(false)
@@ -63,6 +66,7 @@ function onClickOutside(e: MouseEvent) {
 }
 
 let observer: IntersectionObserver | null = null
+let archiveObserver: IntersectionObserver | null = null
 
 onMounted(async () => {
   const data = await fetchTaskList()
@@ -78,10 +82,21 @@ onMounted(async () => {
     )
     observer.observe(sentinel.value)
   }
+  // 归档区域懒加载：进入视口后再渲染列表，减轻首屏 DOM
+  if (archiveSentinel.value && scrollEl.value) {
+    archiveObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) archivedInView.value = true
+      },
+      { root: scrollEl.value, rootMargin: '100px 0px', threshold: 0 }
+    )
+    archiveObserver.observe(archiveSentinel.value)
+  }
 })
 
 onBeforeUnmount(() => {
   observer?.disconnect()
+  archiveObserver?.disconnect()
   document.removeEventListener('click', onClickOutside, true)
 })
 </script>
@@ -200,6 +215,9 @@ onBeforeUnmount(() => {
       <!-- Sentinel for sticky detection -->
       <div ref="sentinel" class="h-0 w-0" aria-hidden="true" />
 
+      <!-- 归档懒加载：进入视口才渲染列表 -->
+      <div ref="archiveSentinel" class="h-0 w-0" aria-hidden="true" />
+
       <!-- Archived Section Title (sticky) -->
       <div
         class="task-sticky sticky top-0 z-10 flex items-end px-4"
@@ -258,33 +276,50 @@ onBeforeUnmount(() => {
         </div>
       </div>
 
-      <!-- Completed Tasks (no card background, no shadow) -->
+      <!-- Completed Tasks：未进入视口显示骨架，进入视口后懒渲染真实列表 -->
       <div class="flex flex-col items-center px-4 pb-4">
         <div class="w-full overflow-hidden rounded-xl">
-          <div
-            v-for="(task, index) in filteredCompletedTasks"
-            :key="task.id"
-            class="cursor-pointer transition-colors active:bg-black/[0.03] dark:active:bg-white/[0.06]"
-            @click="router.push(`/task/${task.id}`)"
-          >
+          <!-- 骨架：与任务行同高同结构，减少布局偏移 -->
+          <template v-if="!archivedInView">
             <div
+              v-for="i in 5"
+              :key="'skeleton-' + i"
               class="flex items-center py-4"
-              :class="index > 0 ? 'border-t border-black/[0.08] dark:border-white/10' : ''"
+              :class="i > 1 ? 'border-t border-black/[0.08] dark:border-white/10' : ''"
             >
-              <div class="flex min-w-0 flex-1 flex-col justify-center">
-                <span class="text-[16px] font-medium leading-[24px] text-[#171717] dark:text-[#E5E5E5]">
-                  {{ task.parkName }}
-                </span>
-                <span class="text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
-                  {{ task.taskName }}
-                </span>
+              <div class="flex min-w-0 flex-1 flex-col justify-center gap-2">
+                <div class="h-5 w-24 rounded bg-black/[0.08] dark:bg-white/15 animate-pulse" />
+                <div class="h-4 w-32 rounded bg-black/[0.06] dark:bg-white/10 animate-pulse" />
               </div>
-              <div class="flex shrink-0 items-center gap-1 self-start rounded-[6px] border border-[#EBEBEB] dark:border-white/10 bg-white dark:bg-[#404040] px-1 py-1">
-                <i class="ri-checkbox-circle-fill text-[16px] leading-[16px] text-[#1FC16B]" />
-                <span class="pr-1 text-[12px] font-medium leading-[16px] text-[#5C5C5C] dark:text-[#A3A3A3]">已完成</span>
+              <div class="h-7 w-16 shrink-0 rounded-[6px] bg-black/[0.08] dark:bg-white/15 animate-pulse" />
+            </div>
+          </template>
+          <template v-else>
+            <div
+              v-for="(task, index) in filteredCompletedTasks"
+              :key="task.id"
+              class="cursor-pointer transition-colors active:bg-black/[0.03] dark:active:bg-white/[0.06]"
+              @click="router.push(`/task/${task.id}`)"
+            >
+              <div
+                class="flex items-center py-4"
+                :class="index > 0 ? 'border-t border-black/[0.08] dark:border-white/10' : ''"
+              >
+                <div class="flex min-w-0 flex-1 flex-col justify-center">
+                  <span class="text-[16px] font-medium leading-[24px] text-[#171717] dark:text-[#E5E5E5]">
+                    {{ task.parkName }}
+                  </span>
+                  <span class="text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
+                    {{ task.taskName }}
+                  </span>
+                </div>
+                <div class="flex shrink-0 items-center gap-1 self-start rounded-[6px] border border-[#EBEBEB] dark:border-white/10 bg-white dark:bg-[#404040] px-1 py-1">
+                  <i class="ri-checkbox-circle-fill text-[16px] leading-[16px] text-[#1FC16B]" />
+                  <span class="pr-1 text-[12px] font-medium leading-[16px] text-[#5C5C5C] dark:text-[#A3A3A3]">已完成</span>
+                </div>
               </div>
             </div>
-          </div>
+          </template>
         </div>
       </div>
 
