@@ -37,7 +37,7 @@ function togglePopover() {
 function onLogout() {
   showPopover.value = false
   emit('logout')
-  router.push('/')
+  router.push('/login')
 }
 
 function onClickOutside(e: MouseEvent) {

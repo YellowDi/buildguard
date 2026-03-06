@@ -4,6 +4,12 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('./components/auth/Login.vue'),
+      meta: { title: '登录' },
+    },
+    {
       path: '/',
       name: 'taskList',
       component: () => import('./components/task/TaskList.vue'),
