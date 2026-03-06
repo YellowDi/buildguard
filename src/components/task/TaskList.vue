@@ -292,26 +292,27 @@ onBeforeUnmount(() => {
 </template>
 
 <style>
-.task-section,
-.task-sticky {
+.task-section {
   background-color: #EBEBEB;
 }
 
-.dark .task-section,
-.dark .task-sticky {
+.dark .task-section {
   background-color: #171717;
 }
 
+/* 未吸顶时无背景，避免裁掉上方卡片的阴影 */
 .task-sticky {
   border-bottom: 1px solid transparent;
-  transition: border-color 200ms ease;
+  transition: border-color 200ms ease, background-color 200ms ease;
 }
 
 .task-sticky.is-stuck {
+  background-color: #EBEBEB;
   border-bottom-color: rgba(0, 0, 0, 0.12);
 }
 
 .dark .task-sticky.is-stuck {
+  background-color: #171717;
   border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 </style>
