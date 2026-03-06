@@ -4,13 +4,23 @@ import type { TaskDetail, Building, InspectionCategory, CheckItem } from '../../
 import InspectionItemDetailDrawer, { type DetailEntry } from './InspectionItemDetailDrawer.vue'
 import { useBodyScrollLock } from '../../composables/useBodyScrollLock'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   visible: boolean
   task: TaskDetail | null
-}>()
+  title?: string
+  helperText?: string
+  showCompletedAt?: boolean
+  showConfirmFooter?: boolean
+}>(), {
+  title: '巡检报告',
+  helperText: '',
+  showCompletedAt: true,
+  showConfirmFooter: false,
+})
 
 const emit = defineEmits<{
   (e: 'close'): void
+  (e: 'confirm'): void
 }>()
 
 type ViewMode = 'building' | 'risk'
@@ -117,6 +127,12 @@ function formatCompletedAt(completedAt: string | undefined): string {
   if (Number.isNaN(y) || Number.isNaN(m) || Number.isNaN(d)) return completedAt
   return `${y} 年 ${m} 月 ${d} 日`
 }
+
+const headerSubtext = computed(() => {
+  if (props.helperText) return ''
+  if (!props.showCompletedAt || !props.task?.completedAt) return ''
+  return `${formatCompletedAt(props.task.completedAt)} 完成`
+})
 </script>
 
 <template>
@@ -142,10 +158,10 @@ function formatCompletedAt(completedAt: string | undefined): string {
         <div class="flex items-center justify-between px-4 pb-3">
           <div>
             <h3 class="text-[16px] font-semibold leading-[24px] text-[#171717] dark:text-[#E5E5E5]">
-              巡检报告
+              {{ props.title }}
             </h3>
-            <p v-if="task.completedAt" class="mt-0.5 text-[12px] leading-[18px] text-[#5C5C5C] dark:text-[#A3A3A3]">
-              {{ formatCompletedAt(task.completedAt) }} 完成
+            <p v-if="headerSubtext" class="mt-0.5 text-[12px] leading-[18px] text-[#5C5C5C] dark:text-[#A3A3A3]">
+              {{ headerSubtext }}
             </p>
           </div>
           <button
@@ -156,6 +172,13 @@ function formatCompletedAt(completedAt: string | undefined): string {
             <i class="ri-close-line drawer-close-icon" />
           </button>
         </div>
+
+        <p
+          v-if="props.helperText"
+          class="px-4 pb-3 text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]"
+        >
+          {{ props.helperText }}
+        </p>
 
         <!-- 切换：按风险 / 按建筑 -->
         <div class="flex gap-2 px-4 pb-3">
@@ -286,6 +309,26 @@ function formatCompletedAt(completedAt: string | undefined): string {
               </ul>
             </div>
           </div>
+        </div>
+
+        <div
+          v-if="props.showConfirmFooter"
+          class="shrink-0 border-t border-[#F0F0F0] dark:border-white/10 px-4 pt-3 pb-[calc(env(safe-area-inset-bottom)+12px)] flex gap-2"
+        >
+          <button
+            type="button"
+            class="flex h-11 flex-1 items-center justify-center rounded-lg bg-[rgba(0,0,0,0.06)] dark:bg-white/10 text-[#5C5C5C] dark:text-[#A3A3A3] transition-colors active:opacity-90"
+            @click="emit('close')"
+          >
+            <span class="text-[15px] font-medium leading-[20px]">返回修改</span>
+          </button>
+          <button
+            type="button"
+            class="flex h-11 flex-1 items-center justify-center rounded-lg bg-[#171717] dark:bg-[#E5E5E5] text-white dark:text-[#171717] transition-colors active:bg-[#333333] dark:active:bg-[#D4D4D4]"
+            @click="emit('confirm')"
+          >
+            <span class="text-[15px] font-medium leading-[20px]">确认提交</span>
+          </button>
         </div>
       </div>
     </Transition>

@@ -4,7 +4,6 @@ import { useRoute, useRouter } from 'vue-router'
 import type { TaskDetail, Building, InspectionCategory, CheckItem, CheckItemStatus } from '../../types/task'
 import { fetchTaskDetail } from '../../api/task'
 import InspectionSheet from './InspectionSheet.vue'
-import SubmitConfirmDrawer from './SubmitConfirmDrawer.vue'
 import TaskReportDrawer from './TaskReportDrawer.vue'
 import InspectionItemDetailDrawer, { type DetailEntry } from './InspectionItemDetailDrawer.vue'
 
@@ -768,9 +767,13 @@ watch(taskId, (id) => { loadTask(id) }, { immediate: true })
       @save="onSheetSave"
     />
 
-    <SubmitConfirmDrawer
+    <TaskReportDrawer
       :visible="submitConfirmVisible"
       :task="task"
+      title="确认巡检结果"
+      helper-text="请核对下方巡检结果，确认无误后点击「确认提交」完成本次巡检。"
+      :show-completed-at="false"
+      :show-confirm-footer="true"
       @close="submitConfirmVisible = false"
       @confirm="onSubmitConfirm"
     />
