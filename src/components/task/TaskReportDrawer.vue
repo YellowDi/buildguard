@@ -194,20 +194,20 @@ const headerSubtext = computed(() => {
         <div class="flex gap-2 px-4 pb-3">
           <button
             type="button"
-            class="btn-toggle flex-1"
+            class="btn-base btn-md flex-1"
             :class="viewMode === 'risk'
-              ? 'btn-toggle--active'
-              : 'btn-toggle--inactive'"
+              ? 'btn-primary'
+              : 'btn-secondary'"
             @click="viewMode = 'risk'"
           >
             按风险
           </button>
           <button
             type="button"
-            class="btn-toggle flex-1"
+            class="btn-base btn-md flex-1"
             :class="viewMode === 'building'
-              ? 'btn-toggle--active'
-              : 'btn-toggle--inactive'"
+              ? 'btn-primary'
+              : 'btn-secondary'"
             @click="viewMode = 'building'"
           >
             按建筑
