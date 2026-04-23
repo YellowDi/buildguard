@@ -2,11 +2,11 @@
   "101": {
     "id": 101,
     "parkName": "华东智能制造产业园",
-    "taskName": "A栋应急照明故障修复",
-    "buildingName": "A栋",
+    "taskName": "华东园区照明与疏散问题维修",
+    "buildingName": "多建筑",
     "address": "浙江省宁波市鄞州区菁华路188号",
-    "location": "B3区 2层东侧疏散通道",
-    "sourceInspectionTask": "2025 年 12 月综合巡检",
+    "location": "按建筑查看",
+    "sourceInspectionTask": "2025 年 12 月综合检测",
     "sourceFinding": "2盏应急照明断电后未恢复，需当天修复。",
     "assignee": "李电工",
     "trade": "electric",
@@ -21,12 +21,90 @@
     "dispatchReason": "检修发现 B3 区疏散通道应急灯断电不亮，已生成紧急维修工单。",
     "sourceInspectionItem": "疏散通道应急照明",
     "sourceStatusLabel": "存在风险",
+    "sourceStatus": "risk",
     "sourceDescription": "B3 区 2 层东侧疏散通道 2 盏应急照明不亮，断电切换后未恢复。",
     "sourceImpact": "夜间或断电场景下疏散可视性不足，可能延长人员撤离时间，需当天修复。",
     "sourceRemark": "A 栋 B3 区 2 层应急灯故障，已提交维修工单。",
     "sourcePhotos": [
       "https://picsum.photos/seed/buildguard-5005-a/480/320",
       "https://picsum.photos/seed/buildguard-5005-b/480/320"
+    ],
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "issues": [
+          {
+            "id": 10101,
+            "title": "疏散通道应急照明",
+            "location": "B3区 2层东侧疏散通道",
+            "issueCategory": "应急照明",
+            "riskLevelLabel": "夜间疏散风险高",
+            "sourceInspectionTask": "2025 年 12 月综合检测",
+            "sourceFinding": "2盏应急照明断电后未恢复，需当天修复。",
+            "sourceStatusLabel": "存在风险",
+            "sourceStatus": "risk",
+            "dispatchReason": "检测发现 B3 区疏散通道应急灯断电不亮，已生成紧急维修工单。",
+            "sourceDescription": "B3 区 2 层东侧疏散通道 2 盏应急照明不亮，断电切换后未恢复。",
+            "sourceImpact": "夜间或断电场景下疏散可视性不足，可能延长人员撤离时间，需当天修复。",
+            "sourceRemark": "A 栋 B3 区 2 层应急灯故障，已提交维修工单。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-5005-a/480/320",
+              "https://picsum.photos/seed/buildguard-5005-b/480/320"
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "issues": [
+          {
+            "id": 10102,
+            "title": "楼梯间疏散指示灯",
+            "location": "1层西侧封闭楼梯间",
+            "issueCategory": "疏散指示",
+            "riskLevelLabel": "导向识别受影响",
+            "sourceInspectionTask": "2025 年 12 月综合检测",
+            "sourceFinding": "一组疏散指示灯闪烁，建议同步更换电源模块。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测发现楼梯间导向标识闪烁，建议与应急照明一并整改。",
+            "sourceDescription": "B 栋 1 层西侧封闭楼梯间 1 组疏散指示灯出现频繁闪烁，亮度不稳定。",
+            "sourceImpact": "应急场景下导向识别度下降，可能影响人员快速撤离。",
+            "sourceRemark": "建议同步检查相邻回路输出电压。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-101-b1/480/320",
+              "https://picsum.photos/seed/buildguard-101-b2/480/320"
+            ]
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "F栋",
+        "issues": [
+          {
+            "id": 10103,
+            "title": "消防泵房末端照明回路",
+            "location": "消防泵房配电末端",
+            "issueCategory": "消防配电",
+            "riskLevelLabel": "夜间值守风险",
+            "sourceInspectionTask": "2025 年 12 月综合检测",
+            "sourceFinding": "末端回路切换迟滞，建议更换老化开关模块。",
+            "sourceStatusLabel": "存在风险",
+            "sourceStatus": "risk",
+            "dispatchReason": "检测发现消防泵房末端照明回路接触不良，需尽快恢复。",
+            "sourceDescription": "F 栋消防泵房照明回路切换时存在明显迟滞，夜间局部照度不足。",
+            "sourceImpact": "影响夜间值守和紧急检修响应，存在消防处置风险。",
+            "sourceRemark": "需与值班班组确认夜间施工窗口。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-101-f1/480/320",
+              "https://picsum.photos/seed/buildguard-101-f2/480/320"
+            ]
+          }
+        ]
+      }
     ],
     "workOrderNo": "WX-20260312-101",
     "requiredTools": ["绝缘万用表", "折叠人字梯", "绝缘螺丝刀"],
@@ -41,11 +119,11 @@
   "102": {
     "id": 102,
     "parkName": "华南物流枢纽园区",
-    "taskName": "1号仓库西侧配电箱风扇更换",
-    "buildingName": "1号仓库",
+    "taskName": "物流园配电散热问题整治",
+    "buildingName": "多建筑",
     "address": "浙江省宁波市鄞州区菁华路188号",
-    "location": "西侧设备夹层配电箱",
-    "sourceInspectionTask": "2026 年 3 月综合巡检",
+    "location": "按建筑查看",
+    "sourceInspectionTask": "2026 年 3 月综合检测",
     "sourceFinding": "散热风扇异响并伴随温升，建议更换风扇模组。",
     "assignee": "李电工",
     "trade": "electric",
@@ -60,12 +138,90 @@
     "dispatchReason": "检修过程中发现配电箱散热异常，需要更换风扇并清理滤网。",
     "sourceInspectionItem": "配电箱散热风扇运行状态",
     "sourceStatusLabel": "需重点关注",
+    "sourceStatus": "focus",
     "sourceDescription": "1号仓库西侧设备夹层配电箱散热风扇异响明显，柜内局部测温较周边高 6.8℃。",
     "sourceImpact": "若持续运行，配电箱散热效率下降，可能导致元件温升加剧并缩短使用寿命。",
     "sourceRemark": "建议本周内更换风扇模组并清理防尘滤网。",
     "sourcePhotos": [
       "https://picsum.photos/seed/buildguard-maint-102-a/480/320",
       "https://picsum.photos/seed/buildguard-maint-102-b/480/320"
+    ],
+    "buildings": [
+      {
+        "id": 1,
+        "name": "1号仓库",
+        "issues": [
+          {
+            "id": 10201,
+            "title": "配电箱散热风扇运行状态",
+            "location": "西侧设备夹层配电箱",
+            "issueCategory": "配电散热",
+            "riskLevelLabel": "中度温升风险",
+            "sourceInspectionTask": "2026 年 3 月综合检测",
+            "sourceFinding": "散热风扇异响并伴随温升，建议更换风扇模组。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测过程中发现配电箱散热异常，需要更换风扇并清理滤网。",
+            "sourceDescription": "1号仓库西侧设备夹层配电箱散热风扇异响明显，柜内局部测温较周边高 6.8℃。",
+            "sourceImpact": "若持续运行，配电箱散热效率下降，可能导致元件温升加剧并缩短使用寿命。",
+            "sourceRemark": "建议本周内更换风扇模组并清理防尘滤网。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-maint-102-a/480/320",
+              "https://picsum.photos/seed/buildguard-maint-102-b/480/320"
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "2号仓库",
+        "issues": [
+          {
+            "id": 10202,
+            "title": "低压柜滤网堵塞",
+            "location": "北侧低压柜组",
+            "issueCategory": "配电散热",
+            "riskLevelLabel": "散热效率下降",
+            "sourceInspectionTask": "2026 年 3 月综合检测",
+            "sourceFinding": "滤网粉尘堆积明显，建议与风扇检修同步处理。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测发现低压柜滤网堵塞，会放大温升问题，建议一并处理。",
+            "sourceDescription": "2号仓库北侧低压柜组滤网粉尘堆积较多，柜内空气流通受限。",
+            "sourceImpact": "持续运行下可能导致散热效率下降，增大元件老化速度。",
+            "sourceRemark": "清理后需复测柜内温升趋势。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-102-b1/480/320",
+              "https://picsum.photos/seed/buildguard-102-b2/480/320"
+            ]
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "综合楼",
+        "issues": [
+          {
+            "id": 10203,
+            "title": "UPS配电柜风道温升异常",
+            "location": "弱电机房 UPS 配电柜",
+            "issueCategory": "机房供配电",
+            "riskLevelLabel": "持续温升偏高",
+            "sourceInspectionTask": "2026 年 3 月综合检测",
+            "sourceFinding": "风道温升高于阈值，需补充清洁和复测。",
+            "sourceStatusLabel": "存在风险",
+            "sourceStatus": "risk",
+            "dispatchReason": "检测发现 UPS 配电柜风道温升异常，建议纳入本次散热整治。",
+            "sourceDescription": "综合楼弱电机房 UPS 配电柜风道温升偏高，热成像显示顶部热点集中。",
+            "sourceImpact": "若不及时处理，可能影响 UPS 柜持续运行稳定性。",
+            "sourceRemark": "需在业务低峰时段完成处理和复测。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-102-c1/480/320",
+              "https://picsum.photos/seed/buildguard-102-c2/480/320"
+            ]
+          }
+        ]
+      }
     ],
     "workOrderNo": "WX-20260313-102",
     "requiredTools": ["十字螺丝刀", "热成像仪", "吸尘器"],
@@ -87,7 +243,7 @@
     "buildingName": "B栋",
     "address": "浙江省宁波市鄞州区菁华路188号",
     "location": "西侧桥架检修段",
-    "sourceInspectionTask": "2025 年 12 月综合巡检",
+    "sourceInspectionTask": "2025 年 12 月综合检测",
     "sourceFinding": "线缆护套老化裂纹明显，建议纳入本周预防性更换。",
     "assignee": "李电工",
     "trade": "electric",
@@ -102,6 +258,7 @@
     "dispatchReason": "检修报告建议安排预防性替换，避免受潮后绝缘击穿。",
     "sourceInspectionItem": "桥架线缆外护套完整性",
     "sourceStatusLabel": "需重点关注",
+    "sourceStatus": "focus",
     "sourceDescription": "B 栋西侧桥架段线缆外护套存在连续裂纹，局部老化发白，未见铜芯外露。",
     "sourceImpact": "若后续受潮或继续老化，绝缘性能可能下降，存在短路和漏电风险。",
     "sourceRemark": "纳入本周预防性更换计划，优先处理外墙转角段。",
@@ -122,11 +279,11 @@
   "104": {
     "id": 104,
     "parkName": "长三角新能源产业园",
-    "taskName": "A栋充电桩配电回路紧固",
-    "buildingName": "A栋",
+    "taskName": "充电与配电回路复核",
+    "buildingName": "多建筑",
     "address": "浙江省宁波市北仑区科创大道66号",
-    "location": "地下车库充电桩配电柜",
-    "sourceInspectionTask": "2025 年 11 月设备维护巡检",
+    "location": "按建筑查看",
+    "sourceInspectionTask": "2025 年 11 月设备维护检测",
     "sourceFinding": "回路端子轻微松动，存在发热风险。",
     "assignee": "李电工",
     "trade": "electric",
@@ -140,12 +297,65 @@
     "dispatchReason": "对充电桩配电柜进行端子紧固和复测。",
     "sourceInspectionItem": "充电桩配电回路端子紧固度",
     "sourceStatusLabel": "需重点关注",
+    "sourceStatus": "focus",
     "sourceDescription": "地下车库充电桩配电柜 2 号回路端子存在轻微松动，热成像显示接线端温度偏高。",
     "sourceImpact": "持续运行可能引发局部发热，进而影响回路稳定性和充电设备供电安全。",
     "sourceRemark": "建议安排停电窗口完成紧固并复测温升。",
     "sourcePhotos": [
       "https://picsum.photos/seed/buildguard-maint-104-a/480/320",
       "https://picsum.photos/seed/buildguard-maint-104-b/480/320"
+    ],
+    "buildings": [
+      {
+        "id": 1,
+        "name": "A栋",
+        "issues": [
+          {
+            "id": 10401,
+            "title": "充电桩配电回路端子紧固度",
+            "location": "地下车库充电桩配电柜",
+            "issueCategory": "配电回路",
+            "riskLevelLabel": "局部发热风险",
+            "sourceInspectionTask": "2025 年 11 月设备维护检测",
+            "sourceFinding": "回路端子轻微松动，存在发热风险。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "对充电桩配电柜进行端子紧固和复测。",
+            "sourceDescription": "地下车库充电桩配电柜 2 号回路端子存在轻微松动，热成像显示接线端温度偏高。",
+            "sourceImpact": "持续运行可能引发局部发热，进而影响回路稳定性和充电设备供电安全。",
+            "sourceRemark": "建议安排停电窗口完成紧固并复测温升。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-maint-104-a/480/320",
+              "https://picsum.photos/seed/buildguard-maint-104-b/480/320"
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "B栋",
+        "issues": [
+          {
+            "id": 10402,
+            "title": "配电柜母排连接复核",
+            "location": "一层设备间低压配电柜",
+            "issueCategory": "配电回路",
+            "riskLevelLabel": "连接温升可控",
+            "sourceInspectionTask": "2025 年 11 月设备维护检测",
+            "sourceFinding": "母排连接处温升略高，建议同步复核扭矩。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测建议与 A 栋工单合并复核，减少重复停电窗口。",
+            "sourceDescription": "B 栋一层设备间低压配电柜母排连接处温升略高，但未出现持续异常扩大。",
+            "sourceImpact": "短期风险可控，但长期运行可能影响连接可靠性。",
+            "sourceRemark": "已在同次停电窗口完成扭矩复核。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-104-b1/480/320",
+              "https://picsum.photos/seed/buildguard-104-b2/480/320"
+            ]
+          }
+        ]
+      }
     ],
     "workOrderNo": "WX-20260305-104",
     "requiredTools": ["扭力扳手", "热成像仪"],
@@ -186,6 +396,7 @@
     "dispatchReason": "消防泵房照明回路恢复，保证值班检修时的照明条件。",
     "sourceInspectionItem": "消防泵房照明回路状态",
     "sourceStatusLabel": "存在风险",
+    "sourceStatus": "risk",
     "sourceDescription": "F 栋消防泵房照明回路开关老化，夜间值守时局部照度不足，切换时有接触不良现象。",
     "sourceImpact": "影响泵房夜间巡视和紧急检修作业，存在消防应急处置响应风险。",
     "sourceRemark": "需尽快更换开关模块并完成照度抽测。",
@@ -209,7 +420,7 @@
       { "id": 2, "title": "更换开关模块", "description": "更换老化开关和端子排。", "status": "done" },
       { "id": 3, "title": "照度复测", "description": "完成照度测试并恢复正常运行。", "status": "done" }
     ],
-    "completionSummary": "照明回路已恢复，泵房主要作业面照度达到巡检标准，夜间检修条件正常。"
+    "completionSummary": "照明回路已恢复，泵房主要作业面照度达到检测标准，夜间检修条件正常。"
   },
   "201": {
     "id": 201,
@@ -218,7 +429,7 @@
     "buildingName": "C栋",
     "address": "浙江省宁波市北仑区科创大道66号",
     "location": "3层东侧卫生间检修口",
-    "sourceInspectionTask": "2026 年 3 月综合巡检",
+    "sourceInspectionTask": "2026 年 3 月综合检测",
     "sourceFinding": "给水阀接口渗水，已影响吊顶内保温层。",
     "assignee": "孙水工",
     "trade": "plumbing",
@@ -233,6 +444,7 @@
     "dispatchReason": "检修发现阀门接口渗漏，已影响周边吊顶保温层，需尽快更换密封件。",
     "sourceInspectionItem": "卫生间给水阀接口密封状态",
     "sourceStatusLabel": "存在风险",
+    "sourceStatus": "risk",
     "sourceDescription": "C 栋 3 层东侧卫生间检修口内给水阀接口持续渗水，周边保温层已有明显潮湿痕迹。",
     "sourceImpact": "持续渗漏可能进一步浸湿吊顶和墙体，增加次生损坏与滑倒风险。",
     "sourceRemark": "优先更换密封件并检查相邻阀组状态。",
@@ -260,7 +472,7 @@
     "buildingName": "综合楼",
     "address": "浙江省宁波市鄞州区菁华路188号",
     "location": "屋面东南角排水点",
-    "sourceInspectionTask": "2026 年 3 月综合巡检",
+    "sourceInspectionTask": "2026 年 3 月综合检测",
     "sourceFinding": "雨水斗积叶严重，暴雨时存在局部积水倒灌风险。",
     "assignee": "孙水工",
     "trade": "plumbing",
@@ -272,9 +484,10 @@
     "phone": "13800004567",
     "issueCategory": "雨水排水",
     "riskLevelLabel": "强降雨时排水受限",
-    "dispatchReason": "巡检建议清理雨水斗和排水支管，避免季节性堵塞。",
+    "dispatchReason": "检测建议清理雨水斗和排水支管，避免季节性堵塞。",
     "sourceInspectionItem": "屋面雨水斗通畅情况",
     "sourceStatusLabel": "需重点关注",
+    "sourceStatus": "focus",
     "sourceDescription": "综合楼屋面东南角雨水斗积叶严重，排水口截面缩小，局部已有泥沙淤积。",
     "sourceImpact": "强降雨时排水能力不足，可能导致屋面积水和局部倒灌。",
     "sourceRemark": "建议晴天窗口安排清掏，并补装防叶网。",
@@ -299,7 +512,7 @@
     "buildingName": "D栋",
     "address": "浙江省宁波市鄞州区菁华路188号",
     "location": "2层设备平台吊顶内",
-    "sourceInspectionTask": "2025 年 12 月综合巡检",
+    "sourceInspectionTask": "2025 年 12 月综合检测",
     "sourceFinding": "冷凝水管接头老化，滴漏已浸湿局部吊顶。",
     "assignee": "孙水工",
     "trade": "plumbing",
@@ -313,6 +526,7 @@
     "dispatchReason": "更换老化接头并重新固定坡度，防止后续滴漏。",
     "sourceInspectionItem": "空调冷凝水管接头状态",
     "sourceStatusLabel": "需重点关注",
+    "sourceStatus": "focus",
     "sourceDescription": "D 栋 2 层设备平台吊顶内冷凝水管接头老化，滴漏已浸湿局部吊顶板。",
     "sourceImpact": "若不处理，可能继续造成吊顶受潮、霉变，并影响相邻弱电桥架环境。",
     "sourceRemark": "同步检查冷凝水排放坡度和固定件。",

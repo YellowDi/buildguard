@@ -62,7 +62,7 @@ function onBackdropClick() {
         style="max-height: 85vh"
         role="dialog"
         aria-modal="true"
-        aria-label="未来计划巡检任务"
+        aria-label="未来计划检测任务"
       >
         <!-- Handle bar -->
         <div class="drawer-handle-wrap">
@@ -72,7 +72,7 @@ function onBackdropClick() {
         <!-- Header -->
         <div class="flex shrink-0 items-center justify-between border-b border-[#EBEBEB] dark:border-white/10 px-4 pb-3">
           <h2 class="text-[17px] font-semibold leading-[22px] text-[#171717] dark:text-[#E5E5E5]">
-            未来计划巡检任务
+            未来计划检测任务
           </h2>
           <button
             type="button"

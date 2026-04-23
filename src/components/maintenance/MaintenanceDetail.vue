@@ -2,8 +2,13 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { fetchMaintenanceTaskDetail } from '../../api/maintenance'
-import type { MaintenanceStep, MaintenanceTaskDetail } from '../../types/maintenance'
+import type {
+  MaintenanceBuildingIssues,
+  MaintenanceIssue,
+  MaintenanceTaskDetail,
+} from '../../types/maintenance'
 import MaintenanceExecutionDrawer from './MaintenanceExecutionDrawer.vue'
+import MaintenanceIssueDrawer from './MaintenanceIssueDrawer.vue'
 import MaintenanceResultDrawer from './MaintenanceResultDrawer.vue'
 
 const route = useRoute()
@@ -17,11 +22,53 @@ const beforeMedia = ref<string[]>([])
 const afterMedia = ref<string[]>([])
 const executionNote = ref('')
 const executionDrawerVisible = ref(false)
-const executionDrawerMode = ref<'before' | 'after'>('before')
+const executionDrawerMode = ref<'before' | 'after'>('after')
 const resultDrawerVisible = ref(false)
 const resultConfirmable = ref(false)
+const issueDrawerVisible = ref(false)
+const selectedBuildingIndex = ref(0)
+const selectedIssueId = ref<number | null>(null)
 
 const taskId = computed(() => Number(route.params.id))
+
+const buildingsList = computed((): MaintenanceBuildingIssues[] => {
+  const currentTask = task.value
+  if (!currentTask) return []
+  if (currentTask.buildings?.length) return currentTask.buildings
+
+  return [{
+    id: 0,
+    name: currentTask.buildingName || '园区整体',
+    issues: [{
+      id: currentTask.id,
+      title: currentTask.sourceInspectionItem,
+      location: currentTask.location,
+      issueCategory: currentTask.issueCategory,
+      riskLevelLabel: currentTask.riskLevelLabel,
+      sourceInspectionTask: currentTask.sourceInspectionTask,
+      sourceFinding: currentTask.sourceFinding,
+      sourceStatusLabel: currentTask.sourceStatusLabel,
+      sourceStatus: currentTask.sourceStatus,
+      dispatchReason: currentTask.dispatchReason,
+      sourceDescription: currentTask.sourceDescription,
+      sourceImpact: currentTask.sourceImpact,
+      sourceRemark: currentTask.sourceRemark,
+      sourcePhotos: currentTask.sourcePhotos,
+    }],
+  }]
+})
+
+const currentBuilding = computed(() =>
+  buildingsList.value[selectedBuildingIndex.value] ?? null,
+)
+
+const currentIssues = computed(() => currentBuilding.value?.issues ?? [])
+
+const selectedIssue = computed(() => {
+  const issues = currentIssues.value
+  if (!issues.length) return null
+  return issues.find((issue) => issue.id === selectedIssueId.value) ?? issues[0]
+})
 
 const statusLabel = computed(() => {
   if (!task.value) return ''
@@ -50,29 +97,11 @@ const statusIconColor = computed(() => {
   }
 })
 
-function stepIcon(step: MaintenanceStep) {
-  switch (step.status) {
-    case 'done': return 'ri-checkbox-circle-fill'
-    case 'active': return 'ri-loader-2-line'
-    case 'pending': return 'ri-time-line'
-  }
-}
-
-function stepIconColor(step: MaintenanceStep) {
-  switch (step.status) {
-    case 'done': return 'text-[#1FC16B]'
-    case 'active': return 'text-[#171717] dark:text-[#E5E5E5]'
-    case 'pending': return 'text-[#FA7319]'
-  }
-}
-
-function stepStatusText(step: MaintenanceStep) {
-  switch (step.status) {
-    case 'done': return '已完成'
-    case 'active': return '处理中'
-    case 'pending': return '待执行'
-  }
-}
+const currentBuildingSummary = computed(() => {
+  const building = currentBuilding.value
+  if (!building) return ''
+  return `${building.name} · ${building.issues.length} 个问题`
+})
 
 const detailTimeText = computed(() => {
   if (!task.value) return ''
@@ -115,16 +144,6 @@ const timeRemainingLabel = computed(() => {
   return `还剩${diffDays}天`
 })
 
-const sourceInstructionText = computed(() => {
-  const currentTask = task.value
-  if (!currentTask) return ''
-  return [
-    currentTask.dispatchReason,
-    currentTask.sourceFinding,
-    currentTask.sourceRemark,
-  ].filter(Boolean).join('；')
-})
-
 type BottomAction = {
   key: 'call' | 'navigate' | 'start' | 'report' | 'summary'
   label: string
@@ -132,19 +151,20 @@ type BottomAction = {
   icon?: string
   fillRemaining?: boolean
 }
+
 const bottomActions = computed((): BottomAction[] => {
   if (!task.value) return []
   switch (task.value.status) {
     case 'pending':
       return [
-        { key: 'start', label: '提交开工记录', primary: true, icon: 'ri-play-circle-line', fillRemaining: true },
+        { key: 'start', label: '开始维修', primary: true, icon: 'ri-play-circle-line', fillRemaining: true },
         { key: 'navigate', label: '导航过去', icon: 'ri-map-pin-line' },
         { key: 'call', label: '电话联系', icon: 'ri-phone-line' },
       ]
     case 'active':
       return [
         { key: 'call', label: '电话联系', icon: 'ri-phone-line' },
-        { key: 'report', label: '提交维修结果', primary: true, icon: 'ri-file-list-3-line', fillRemaining: true },
+        { key: 'report', label: '填写维修结果', primary: true, icon: 'ri-file-list-3-line', fillRemaining: true },
       ]
     case 'completed':
       return [
@@ -158,6 +178,51 @@ const hasFillRemainingAction = computed(() =>
   bottomActions.value.some((action) => action.fillRemaining),
 )
 
+function buildingStats(building: MaintenanceBuildingIssues) {
+  return {
+    total: building.issues.length,
+  }
+}
+
+function issueStatusLabel(issue: MaintenanceIssue) {
+  if (issue.sourceStatusLabel) return issue.sourceStatusLabel
+  switch (issue.sourceStatus) {
+    case 'normal': return '一切正常'
+    case 'focus': return '需重点关注'
+    case 'risk': return '存在风险'
+    default: return ''
+  }
+}
+
+function issueStatusColor(issue: MaintenanceIssue) {
+  switch (issue.sourceStatus) {
+    case 'normal': return 'text-[#1FC16B]'
+    case 'focus': return 'text-[#FA7319]'
+    case 'risk': return 'text-[#E5484D]'
+    default: return 'text-[#5C5C5C] dark:text-[#A3A3A3]'
+  }
+}
+
+function issueStatusIcon(issue: MaintenanceIssue) {
+  switch (issue.sourceStatus) {
+    case 'normal': return 'ri-checkbox-circle-fill'
+    case 'focus': return 'ri-alert-line'
+    case 'risk': return 'ri-error-warning-fill'
+    default: return 'ri-information-line'
+  }
+}
+
+function selectBuilding(index: number) {
+  if (index === selectedBuildingIndex.value) return
+  selectedBuildingIndex.value = index
+  selectedIssueId.value = currentBuilding.value?.issues[0]?.id ?? null
+}
+
+function openIssueDrawer(issue: MaintenanceIssue) {
+  selectedIssueId.value = issue.id
+  issueDrawerVisible.value = true
+}
+
 function onCall() {
   if (!task.value?.phone) return
   window.location.href = `tel:${task.value.phone}`
@@ -169,16 +234,35 @@ function onNavigate() {
   window.open(`https://maps.google.com/maps?q=${query}`, '_blank', 'noopener')
 }
 
-function openBeforeRecordDrawer() {
-  if (!task.value || task.value.status !== 'pending') return
-  executionDrawerMode.value = 'before'
+function openRepairResultDrawer() {
+  if (!task.value || task.value.status === 'completed') return
+  executionDrawerMode.value = 'after'
   executionDrawerVisible.value = true
 }
 
-function openAfterRecordDrawer() {
-  if (!task.value || task.value.status !== 'active') return
-  executionDrawerMode.value = 'after'
-  executionDrawerVisible.value = true
+function markTaskStarted() {
+  if (!task.value || task.value.status !== 'pending') return
+  task.value.status = 'active'
+  task.value.steps.forEach((step, index) => {
+    step.status = index === 0 ? 'active' : 'pending'
+  })
+}
+
+function handleIssueAction() {
+  if (!task.value) return
+  issueDrawerVisible.value = false
+
+  if (task.value.status === 'completed') {
+    resultConfirmable.value = false
+    resultDrawerVisible.value = true
+    return
+  }
+
+  if (task.value.status === 'pending') {
+    markTaskStarted()
+  }
+
+  openRepairResultDrawer()
 }
 
 function onViewSummary() {
@@ -189,21 +273,10 @@ function onViewSummary() {
 function onSaveExecutionRecord(payload: { beforeMedia: string[]; afterMedia: string[]; executionNote: string }) {
   if (!task.value) return
 
-  if (executionDrawerMode.value === 'before') {
-    beforeMedia.value = payload.beforeMedia
-    task.value.beforeMedia = payload.beforeMedia
-    task.value.status = 'active'
-    task.value.steps.forEach((step, index) => {
-      if (index === 0) step.status = 'done'
-      else if (index === 1) step.status = 'active'
-      else step.status = 'pending'
-    })
-    executionDrawerVisible.value = false
-    return
-  }
-
+  beforeMedia.value = payload.beforeMedia
   afterMedia.value = payload.afterMedia
   executionNote.value = payload.executionNote
+  task.value.beforeMedia = payload.beforeMedia
   task.value.afterMedia = payload.afterMedia
   task.value.executionNote = payload.executionNote
   executionDrawerVisible.value = false
@@ -229,10 +302,10 @@ async function handleBottomAction(action: BottomAction['key']) {
       onNavigate()
       break
     case 'start':
-      openBeforeRecordDrawer()
+      if (selectedIssue.value) openIssueDrawer(selectedIssue.value)
       break
     case 'report':
-      openAfterRecordDrawer()
+      openRepairResultDrawer()
       break
     case 'summary':
       onViewSummary()
@@ -247,6 +320,7 @@ async function loadTask(id: number) {
   executionDrawerVisible.value = false
   resultDrawerVisible.value = false
   resultConfirmable.value = false
+  issueDrawerVisible.value = false
   task.value = null
 
   if (!Number.isFinite(id) || id <= 0) {
@@ -265,12 +339,23 @@ async function loadTask(id: number) {
     beforeMedia.value = data.beforeMedia ? [...data.beforeMedia] : []
     afterMedia.value = data.afterMedia ? [...data.afterMedia] : []
     executionNote.value = data.executionNote ?? ''
+    selectedBuildingIndex.value = 0
+    selectedIssueId.value = data.buildings?.[0]?.issues[0]?.id ?? data.id
   } catch {
     errorMessage.value = '维修任务加载失败，请稍后重试'
   } finally {
     loading.value = false
   }
 }
+
+watch(
+  () => buildingsList.value.length,
+  (len) => {
+    if (len > 0 && selectedBuildingIndex.value >= len) {
+      selectedBuildingIndex.value = 0
+    }
+  },
+)
 
 watch(taskId, (id) => { loadTask(id) }, { immediate: true })
 </script>
@@ -336,7 +421,7 @@ watch(taskId, (id) => { loadTask(id) }, { immediate: true })
             <div class="flex items-center gap-2">
               <i class="ri-map-pin-line text-[20px] leading-[20px] text-[#A3A3A3]" />
               <span class="text-[14px] font-medium leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
-                {{ task.buildingName }} · {{ task.location }}
+                {{ currentBuildingSummary }}
               </span>
             </div>
             <div v-if="task.address" class="flex items-center gap-2">
@@ -358,127 +443,74 @@ watch(taskId, (id) => { loadTask(id) }, { immediate: true })
               </span>
             </div>
           </div>
-
         </div>
 
         <div class="segment-divider my-4 shrink-0" />
 
-        <div class="card-shadow rounded-xl bg-white p-4 dark:bg-[#262626]">
-          <h2 class="text-[16px] font-bold leading-[24px] text-[#171717] dark:text-[#E5E5E5]">来源巡检问题</h2>
-          <div class="mt-4 flex flex-col gap-2">
-            <div class="flex items-center gap-2">
-              <i class="ri-file-list-3-line text-[18px] leading-[18px] text-[#A3A3A3]" />
-              <span class="text-[14px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">{{ task.sourceInspectionTask }}</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="ri-alert-line text-[18px] leading-[18px] text-[#A3A3A3]" />
-              <span class="text-[14px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">{{ task.issueCategory }} · {{ task.riskLevelLabel }}</span>
-            </div>
-          </div>
-          <div class="mt-4 rounded-xl bg-[#F5F5F5] px-3 py-3 dark:bg-[#404040]">
-            <div class="flex items-center gap-2">
-              <span class="text-[14px] font-medium leading-[20px] text-[#171717] dark:text-[#E5E5E5]">{{ task.sourceInspectionItem }}</span>
-              <span class="rounded-full bg-white px-2 py-0.5 text-[11px] font-medium text-[#5C5C5C] dark:bg-[#262626] dark:text-[#A3A3A3]">
-                {{ task.sourceStatusLabel }}
-              </span>
-            </div>
-            <div v-if="sourceInstructionText" class="mt-2">
-              <p class="text-[13px] leading-[20px] text-[#737373] dark:text-[#A3A3A3]">
-                {{ sourceInstructionText }}
-              </p>
-            </div>
-          </div>
-          <div class="mt-3">
-            <span class="mb-1.5 block text-[13px] font-medium leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">问题描述</span>
-            <div class="rounded-xl bg-[#F5F5F5] px-3 py-3 dark:bg-[#404040]">
-              <p class="text-[14px] leading-[22px] text-[#171717] dark:text-[#E5E5E5]">
-                {{ task.sourceDescription }}
-              </p>
-            </div>
-          </div>
-          <div class="mt-3">
-            <span class="mb-1.5 block text-[13px] font-medium leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">影响评估</span>
-            <div class="rounded-xl bg-[#F5F5F5] px-3 py-3 dark:bg-[#404040]">
-              <p class="text-[14px] leading-[22px] text-[#171717] dark:text-[#E5E5E5]">
-                {{ task.sourceImpact }}
-              </p>
-            </div>
-          </div>
-          <div v-if="task.sourcePhotos?.length" class="mt-3 grid grid-cols-2 gap-2">
-            <img
-              v-for="photo in task.sourcePhotos"
-              :key="photo"
-              :src="photo"
-              alt="巡检现场照片"
-              class="h-[120px] w-full rounded-xl object-cover"
-            />
-          </div>
-        </div>
-
-        <div class="card-shadow mt-4 rounded-xl bg-white p-4 dark:bg-[#262626]">
-          <h2 class="text-[16px] font-bold leading-[24px] text-[#171717] dark:text-[#E5E5E5]">维修处理信息</h2>
-          <div class="mt-4 grid grid-cols-2 gap-3">
-            <div class="rounded-xl bg-[#F5F5F5] px-3 py-3 dark:bg-[#404040]">
-              <p class="text-[12px] leading-[16px] text-[#737373] dark:text-[#A3A3A3]">工单编号</p>
-              <p class="mt-1 text-[13px] font-medium leading-[20px] text-[#171717] dark:text-[#E5E5E5]">{{ task.workOrderNo }}</p>
-            </div>
-            <div class="rounded-xl bg-[#F5F5F5] px-3 py-3 dark:bg-[#404040]">
-              <p class="text-[12px] leading-[16px] text-[#737373] dark:text-[#A3A3A3]">现场联系人</p>
-              <p class="mt-1 text-[13px] font-medium leading-[20px] text-[#171717] dark:text-[#E5E5E5]">{{ task.contact || '-' }}</p>
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <p class="text-[13px] font-medium leading-[20px] text-[#171717] dark:text-[#E5E5E5]">工具与材料</p>
-            <div class="mt-2 flex flex-wrap gap-2">
-              <span
-                v-for="item in [...task.requiredTools, ...task.requiredMaterials]"
-                :key="item"
-                class="rounded-full bg-[#F5F5F5] px-2 py-1 text-[12px] leading-[16px] text-[#5C5C5C] dark:bg-[#404040] dark:text-[#A3A3A3]"
-              >
-                {{ item }}
-              </span>
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <p class="text-[13px] font-medium leading-[20px] text-[#171717] dark:text-[#E5E5E5]">安全提醒</p>
-            <div class="mt-2 flex flex-col gap-2">
-              <div
-                v-for="note in task.safetyNotes"
-                :key="note"
-                class="flex items-start gap-2 rounded-xl bg-[#FFF7E6] px-3 py-3 dark:bg-[#3D2B1F]"
-              >
-                <i class="ri-shield-check-line mt-0.5 text-[16px] leading-[16px] text-[#FA7319]" />
-                <span class="text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#E5E5E5]">{{ note }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-shadow maintenance-last-card mt-4 overflow-hidden rounded-xl bg-white dark:bg-[#262626]">
-          <div class="px-4 py-4">
-            <h2 class="text-[16px] font-bold leading-[24px] text-[#171717] dark:text-[#E5E5E5]">处理步骤</h2>
-          </div>
-          <div
-            v-for="(step, index) in task.steps"
-            :key="step.id"
-            class="px-4"
+        <div class="mb-4 grid grid-cols-3 gap-2.5">
+          <button
+            v-for="(building, idx) in buildingsList"
+            :key="building.id"
+            type="button"
+            class="building-tab flex min-w-0 flex-col items-start rounded-md px-3 py-3 text-left transition-all duration-200"
+            :class="selectedBuildingIndex === idx ? 'building-tab--active' : 'building-tab--inactive'"
+            @click="selectBuilding(idx)"
           >
-            <div class="py-4" :class="index > 0 ? 'border-t border-[#EBEBEB] dark:border-white/10' : ''">
-              <div class="flex items-start gap-3">
-                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F5F5F5] dark:bg-[#404040]">
-                  <i :class="[stepIcon(step), 'text-[18px] leading-[18px]', stepIconColor(step)]" />
-                </div>
-                <div class="min-w-0 flex-1">
-                  <div class="flex items-center gap-2">
-                    <span class="text-[14px] font-medium leading-[20px] text-[#171717] dark:text-[#E5E5E5]">{{ step.title }}</span>
-                    <span class="text-[12px] leading-[16px]" :class="stepIconColor(step)">{{ stepStatusText(step) }}</span>
-                  </div>
-                  <p class="mt-1 text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">{{ step.description }}</p>
-                </div>
+            <span
+              class="block text-[14px] font-semibold leading-[20px]"
+              :class="selectedBuildingIndex === idx ? 'text-white dark:text-[#171717]' : 'text-[#171717] dark:text-[#E5E5E5]'"
+            >
+              {{ building.name }}
+            </span>
+            <span
+              class="mt-0.5 block text-[12px] tabular-nums leading-[16px]"
+              :class="selectedBuildingIndex === idx ? 'text-white/80 dark:text-[#171717]/80' : 'text-[#5C5C5C] dark:text-[#A3A3A3]'"
+            >
+              {{ buildingStats(building).total }} 个问题
+            </span>
+          </button>
+        </div>
+
+        <h2 class="text-[16px] font-bold leading-[24px] text-[#171717] dark:text-[#E5E5E5]">
+          {{ currentBuilding ? `${currentBuilding.name} · 问题列表` : '问题列表' }}
+        </h2>
+
+        <div v-if="currentIssues.length" class="mt-4 flex flex-col gap-4">
+          <div class="card-shadow overflow-hidden rounded-xl bg-white dark:bg-[#262626]">
+            <button
+              v-for="(issue, index) in currentIssues"
+              :key="issue.id"
+              type="button"
+              class="flex w-full items-start gap-3 px-4 py-4 text-left transition-colors active:bg-black/[0.02] dark:active:bg-white/[0.04]"
+              :class="index > 0 ? 'border-t border-[#EBEBEB] dark:border-white/10' : ''"
+              @click="openIssueDrawer(issue)"
+            >
+              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F5F5F5] dark:bg-[#404040]">
+                <i :class="[issueStatusIcon(issue), 'text-[18px] leading-[18px]', issueStatusColor(issue)]" />
               </div>
-            </div>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-2">
+                  <span class="truncate text-[14px] font-medium leading-[20px] text-[#171717] dark:text-[#E5E5E5]">
+                    {{ issue.title }}
+                  </span>
+                  <span class="shrink-0 text-[12px] leading-[16px]" :class="issueStatusColor(issue)">
+                    {{ issueStatusLabel(issue) }}
+                  </span>
+                </div>
+                <p class="mt-1 text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
+                  {{ issue.location }}
+                </p>
+                <p class="mt-0.5 text-[12px] leading-[18px] text-[#737373] dark:text-[#A3A3A3]">
+                  {{ issue.issueCategory }} · {{ issue.riskLevelLabel }}
+                </p>
+              </div>
+              <i class="ri-arrow-right-s-line mt-1 shrink-0 text-[20px] leading-[20px] text-[#A3A3A3]" />
+            </button>
           </div>
+        </div>
+
+        <div v-else class="mt-4 rounded-xl bg-white px-4 py-5 text-[14px] leading-[20px] text-[#5C5C5C] dark:bg-[#262626] dark:text-[#A3A3A3]">
+          当前建筑暂无待处理问题。
         </div>
 
         <div class="pb-8" />
@@ -507,6 +539,15 @@ watch(taskId, (id) => { loadTask(id) }, { immediate: true })
         </button>
       </div>
     </div>
+
+    <MaintenanceIssueDrawer
+      :visible="issueDrawerVisible"
+      :building-name="currentBuilding?.name ?? task?.buildingName ?? '园区整体'"
+      :issue="selectedIssue"
+      :task-status="task?.status ?? 'pending'"
+      @close="issueDrawerVisible = false"
+      @action="handleIssueAction"
+    />
 
     <MaintenanceExecutionDrawer
       :visible="executionDrawerVisible"
@@ -540,13 +581,28 @@ watch(taskId, (id) => { loadTask(id) }, { immediate: true })
     inset 0px -1px 1px -0.5px rgba(23, 23, 23, 0.06);
 }
 
-.maintenance-last-card {
-  box-shadow:
-    0px 1px 1px -0.5px rgba(23, 23, 23, 0.04),
-    0px 3px 3px -1.5px rgba(23, 23, 23, 0.04),
-    0px 6px 6px -3px rgba(23, 23, 23, 0.04),
-    0px 10px 10px -5px rgba(23, 23, 23, 0.04),
-    0px 20px 20px -10px rgba(23, 23, 23, 0.04);
+.building-tab--active {
+  background: linear-gradient(145deg, #171717 0%, #2d2d2d 100%);
+}
+
+.dark .building-tab--active {
+  background: linear-gradient(145deg, #E5E5E5 0%, #D4D4D4 100%);
+}
+
+.building-tab--inactive {
+  background: #F5F5F5;
+}
+
+.dark .building-tab--inactive {
+  background: #404040;
+}
+
+.building-tab--inactive:active {
+  background: #EBEBEB;
+}
+
+.dark .building-tab--inactive:active {
+  background: #525252;
 }
 
 .segment-divider {

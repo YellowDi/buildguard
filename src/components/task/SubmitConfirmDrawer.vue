@@ -89,7 +89,7 @@ const checkedList = () => getAllCheckedItems(props.task)
 
         <div class="flex items-center justify-between px-4 pb-3">
           <h3 class="text-[16px] font-semibold leading-[24px] text-[#171717] dark:text-[#E5E5E5]">
-            确认巡检结果
+            确认检测结果
           </h3>
           <button
             type="button"
@@ -101,7 +101,7 @@ const checkedList = () => getAllCheckedItems(props.task)
         </div>
 
         <p class="px-4 pb-3 text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
-          请核对下方巡检结果，确认无误后点击「确认提交」完成本次巡检。
+          请核对下方检测结果，确认无误后点击「确认提交」完成本次检测。
         </p>
 
         <div class="flex-1 overflow-y-auto px-4 pb-4">

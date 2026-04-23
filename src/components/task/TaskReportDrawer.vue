@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<{
   showCompletedAt?: boolean
   showConfirmFooter?: boolean
 }>(), {
-  title: '巡检报告',
+  title: '检测报告',
   helperText: '',
   showCompletedAt: true,
   showConfirmFooter: false,

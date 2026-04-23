@@ -249,7 +249,7 @@ onBeforeUnmount(() => {
                 class="btn-base btn-primary h-10 w-full px-4 text-[14px] leading-[20px]"
                 @click.stop="router.push(`/task/${task.id}`)"
               >
-                <span>开始巡检</span>
+                <span>开始检测</span>
               </button>
             </div>
           </div>

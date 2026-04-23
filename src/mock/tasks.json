@@ -6,7 +6,7 @@
         {
           "id": 1,
           "parkName": "华东智能制造产业园",
-          "taskName": "2026 年 3 月综合巡检",
+          "taskName": "2026 年 3 月综合检测",
           "address": "浙江省宁波市鄞州区菁华路188号",
           "deadline": "3 月 31 日前完成",
           "plannedAt": "2026-03-01",
@@ -15,7 +15,7 @@
         {
           "id": 2,
           "parkName": "华南物流枢纽园区",
-          "taskName": "2026 年 3 月综合巡检",
+          "taskName": "2026 年 3 月综合检测",
           "address": "浙江省宁波市鄞州区菁华路188号",
           "deadline": "3 月 31 日前完成",
           "plannedAt": "2026-03-15",
@@ -30,14 +30,14 @@
         {
           "id": 3,
           "parkName": "华南物流枢纽园区",
-          "taskName": "2026 年 4 月综合巡检",
+          "taskName": "2026 年 4 月综合检测",
           "plannedAt": "2026-04-01",
           "status": "pending"
         },
         {
           "id": 4,
           "parkName": "长三角新能源产业园",
-          "taskName": "2026 年 4 月综合巡检",
+          "taskName": "2026 年 4 月综合检测",
           "plannedAt": "2026-04-15",
           "status": "pending"
         }
@@ -50,28 +50,28 @@
         {
           "id": 5,
           "parkName": "华东智能制造产业园",
-          "taskName": "2025 年 12 月综合巡检",
+          "taskName": "2025 年 12 月综合检测",
           "completedAt": "2025-12-28",
           "status": "completed"
         },
         {
           "id": 6,
           "parkName": "华南物流枢纽园区",
-          "taskName": "2025 年 12 月综合巡检",
+          "taskName": "2025 年 12 月综合检测",
           "completedAt": "2025-12-25",
           "status": "completed"
         },
         {
           "id": 7,
           "parkName": "长三角新能源产业园",
-          "taskName": "2025 年 11 月综合巡检",
+          "taskName": "2025 年 11 月综合检测",
           "completedAt": "2025-11-27",
           "status": "completed"
         },
         {
           "id": 8,
           "parkName": "华东智能制造产业园",
-          "taskName": "2025 年 10 月综合巡检",
+          "taskName": "2025 年 10 月综合检测",
           "completedAt": "2025-10-29",
           "status": "completed"
         },
@@ -85,28 +85,28 @@
         {
           "id": 10,
           "parkName": "长三角新能源产业园",
-          "taskName": "2025 年 8 月设备维护巡检",
+          "taskName": "2025 年 8 月设备维护检测",
           "completedAt": "2025-08-28",
           "status": "completed"
         },
         {
           "id": 11,
           "parkName": "华东智能制造产业园",
-          "taskName": "2025 年 7 月综合巡检",
+          "taskName": "2025 年 7 月综合检测",
           "completedAt": "2025-07-30",
           "status": "completed"
         },
         {
           "id": 12,
           "parkName": "华南物流枢纽园区",
-          "taskName": "2025 年 6 月综合巡检",
+          "taskName": "2025 年 6 月综合检测",
           "completedAt": "2025-06-27",
           "status": "completed"
         },
         {
           "id": 13,
           "parkName": "长三角新能源产业园",
-          "taskName": "2025 年 5 月综合巡检",
+          "taskName": "2025 年 5 月综合检测",
           "completedAt": "2025-05-29",
           "status": "completed"
         },
@@ -120,35 +120,35 @@
         {
           "id": 15,
           "parkName": "华南物流枢纽园区",
-          "taskName": "2025 年 3 月综合巡检",
+          "taskName": "2025 年 3 月综合检测",
           "completedAt": "2025-03-28",
           "status": "completed"
         },
         {
           "id": 16,
           "parkName": "长三角新能源产业园",
-          "taskName": "2025 年 2 月设备维护巡检",
+          "taskName": "2025 年 2 月设备维护检测",
           "completedAt": "2025-02-26",
           "status": "completed"
         },
         {
           "id": 17,
           "parkName": "华东智能制造产业园",
-          "taskName": "2025 年 1 月综合巡检",
+          "taskName": "2025 年 1 月综合检测",
           "completedAt": "2025-01-29",
           "status": "completed"
         },
         {
           "id": 18,
           "parkName": "华南物流枢纽园区",
-          "taskName": "2024 年 12 月综合巡检",
+          "taskName": "2024 年 12 月综合检测",
           "completedAt": "2024-12-27",
           "status": "completed"
         },
         {
           "id": 19,
           "parkName": "长三角新能源产业园",
-          "taskName": "2024 年 11 月综合巡检",
+          "taskName": "2024 年 11 月综合检测",
           "completedAt": "2024-11-28",
           "status": "completed"
         },
@@ -162,21 +162,21 @@
         {
           "id": 21,
           "parkName": "华南物流枢纽园区",
-          "taskName": "2024 年 9 月设备维护巡检",
+          "taskName": "2024 年 9 月设备维护检测",
           "completedAt": "2024-09-26",
           "status": "completed"
         },
         {
           "id": 22,
           "parkName": "长三角新能源产业园",
-          "taskName": "2024 年 8 月综合巡检",
+          "taskName": "2024 年 8 月综合检测",
           "completedAt": "2024-08-29",
           "status": "completed"
         },
         {
           "id": 23,
           "parkName": "华东智能制造产业园",
-          "taskName": "2024 年 7 月综合巡检",
+          "taskName": "2024 年 7 月综合检测",
           "completedAt": "2024-07-30",
           "status": "completed"
         }

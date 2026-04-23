@@ -134,7 +134,7 @@ const deadlineDisplayText = computed(() => {
   const t = task.value
   if (!t) return ''
   if (t.status === 'completed' && t.completedAt)
-    return `${formatCompletedAt(t.completedAt)} 完成巡检`
+    return `${formatCompletedAt(t.completedAt)} 完成检测`
   const text = t.status === 'pending' && t.startDate
     ? `${t.startDate.trim()} - ${t.deadline}`
     : t.deadline
@@ -201,7 +201,7 @@ const bottomActions = computed((): BottomAction[] => {
     case 'pending':
       // 待完成：开始巡检、导航过去、电话联系
       return [
-        { key: 'start', label: '开始巡检', primary: true, icon: 'ri-play-circle-line' },
+        { key: 'start', label: '开始检测', primary: true, icon: 'ri-play-circle-line' },
         { key: 'navigate', label: '导航过去', icon: 'ri-map-pin-line' },
         { key: 'call', label: '电话联系', icon: 'ri-phone-line' },
       ]
@@ -215,7 +215,7 @@ const bottomActions = computed((): BottomAction[] => {
       }
       return [
         { key: 'call', label: '电话联系', icon: 'ri-phone-line' },
-        { key: 'continue', label: '继续巡检', primary: true, icon: 'ri-play-circle-line', fillRemaining: true },
+        { key: 'continue', label: '继续检测', primary: true, icon: 'ri-play-circle-line', fillRemaining: true },
       ]
     case 'completed':
       // 已完成：电话联系（左窄）+ 查看报告（右撑满）
@@ -594,7 +594,7 @@ watch(taskId, (id) => { loadTask(id) }, { immediate: true })
         <div class="mt-4 flex flex-col gap-1.5">
           <div class="flex items-center justify-between">
             <!-- font_2:1735 = 14px Medium, paint_2:1736 = #171717 -->
-            <span class="text-[14px] font-medium leading-[20px] text-[#171717] dark:text-[#E5E5E5]">巡检进度</span>
+            <span class="text-[14px] font-medium leading-[20px] text-[#171717] dark:text-[#E5E5E5]">检测进度</span>
             <!-- font_2:07947 = 12px Regular, paint_2:2909 = #5C5C5C -->
             <span class="text-[12px] tabular-nums leading-[16px] text-[#5C5C5C] dark:text-[#A3A3A3]">
               {{ checkedItems }} / {{ totalItems }}
@@ -642,7 +642,7 @@ watch(taskId, (id) => { loadTask(id) }, { immediate: true })
 
       <!-- Section Title: font_2:1777 = 16px Bold, paint_2:1736 = #171717 -->
       <h2 class="text-[16px] font-bold leading-[24px] text-[#171717] dark:text-[#E5E5E5]">
-        {{ currentBuilding ? `${currentBuilding.name} · 巡检项目` : '巡检项目' }}
+        {{ currentBuilding ? `${currentBuilding.name} · 检测项目` : '检测项目' }}
       </h2>
 
       <!-- Inspection Category Accordions（当前建筑） -->
@@ -768,8 +768,8 @@ watch(taskId, (id) => { loadTask(id) }, { immediate: true })
     <TaskReportDrawer
       :visible="submitConfirmVisible"
       :task="task"
-      title="确认巡检结果"
-      helper-text="请核对下方巡检结果，确认无误后点击「确认提交」完成本次巡检。"
+      title="确认检测结果"
+      helper-text="请核对下方检测结果，确认无误后点击「确认提交」完成本次检测。"
       :show-completed-at="false"
       :show-confirm-footer="true"
       @close="submitConfirmVisible = false"

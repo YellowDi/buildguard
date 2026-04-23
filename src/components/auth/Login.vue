@@ -141,7 +141,7 @@ function onQuickLogin(user: DemoUser) {
             <div>
               <p class="text-[13px] font-medium text-[#171717] dark:text-[#E5E5E5]">快捷登录</p>
               <p class="mt-1 text-[12px] leading-[18px] text-[#5C5C5C] dark:text-[#A3A3A3]">
-                临时测试入口。检修身份可查看巡检数据；维修身份按工种查看对应维修任务。
+                临时测试入口。检修身份可查看检测数据；维修身份按工种查看对应维修任务。
               </p>
             </div>
           </div>

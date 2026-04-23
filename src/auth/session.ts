@@ -40,7 +40,7 @@ export const DEMO_USERS: DemoUser[] = [
     role: 'inspector',
     demoMode: 'default',
     roleLabel: '检修身份',
-    description: '查看现有巡检任务、详情数据与当前流程。',
+    description: '查看现有检测任务、详情数据与当前流程。',
   },
   {
     id: 'inspector-empty-demo',
