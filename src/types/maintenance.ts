@@ -45,6 +45,8 @@ export interface MaintenanceIssue {
   id: number
   title: string
   location: string
+  inspectionCategoryName?: string
+  inspectionCategoryDescription?: string
   issueCategory: string
   riskLevelLabel: string
   sourceInspectionTask: string
@@ -58,10 +60,18 @@ export interface MaintenanceIssue {
   sourcePhotos?: string[]
 }
 
+export interface MaintenanceIssueCategory {
+  id: number
+  name: string
+  description?: string
+  items: MaintenanceIssue[]
+}
+
 export interface MaintenanceBuildingIssues {
   id: number
   name: string
   issues: MaintenanceIssue[]
+  categories?: MaintenanceIssueCategory[]
 }
 
 export interface MaintenanceTaskDetail extends MaintenanceTask {

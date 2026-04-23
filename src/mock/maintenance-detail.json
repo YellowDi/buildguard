@@ -33,11 +33,64 @@
       {
         "id": 1,
         "name": "A栋",
+        "categories": [
+          {
+            "id": 1101,
+            "name": "消防系统",
+            "description": "围绕疏散照明、告警与应急响应链路进行检测。",
+            "items": [
+              {
+                "id": 10101,
+                "title": "疏散通道应急照明",
+                "location": "B3区 2层东侧疏散通道",
+                "inspectionCategoryName": "消防系统",
+                "inspectionCategoryDescription": "围绕疏散照明、告警与应急响应链路进行检测。",
+                "issueCategory": "应急照明",
+                "riskLevelLabel": "夜间疏散风险高",
+                "sourceInspectionTask": "2025 年 12 月综合检测",
+                "sourceFinding": "2盏应急照明断电后未恢复，需当天修复。",
+                "sourceStatusLabel": "存在风险",
+                "sourceStatus": "risk",
+                "dispatchReason": "检测发现 B3 区疏散通道应急灯断电不亮，已生成紧急维修工单。",
+                "sourceDescription": "B3 区 2 层东侧疏散通道 2 盏应急照明不亮，断电切换后未恢复。",
+                "sourceImpact": "夜间或断电场景下疏散可视性不足，可能延长人员撤离时间，需当天修复。",
+                "sourceRemark": "A 栋 B3 区 2 层应急灯故障，已提交维修工单。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-5005-a/480/320",
+                  "https://picsum.photos/seed/buildguard-5005-b/480/320"
+                ]
+              },
+              {
+                "id": 10104,
+                "title": "防火门释放器联动状态",
+                "location": "2层防火分区连通口",
+                "inspectionCategoryName": "消防系统",
+                "inspectionCategoryDescription": "围绕疏散照明、告警与应急响应链路进行检测。",
+                "issueCategory": "消防联动",
+                "riskLevelLabel": "联动响应延迟",
+                "sourceInspectionTask": "2025 年 12 月综合检测",
+                "sourceFinding": "防火门释放器动作延迟，建议排查电磁释放模块。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测发现防火门释放器联动延迟，需同步排查控制模块与线缆接点。",
+                "sourceDescription": "A 栋 2 层防火分区连通口防火门释放器测试时动作延迟约 3 秒，未达响应要求。",
+                "sourceImpact": "火警联动时防火分区关闭可能滞后，影响烟气控制效果。",
+                "sourceRemark": "建议与本层消防回路一起复测。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-101-a3/480/320",
+                  "https://picsum.photos/seed/buildguard-101-a4/480/320"
+                ]
+              }
+            ]
+          }
+        ],
         "issues": [
           {
             "id": 10101,
             "title": "疏散通道应急照明",
             "location": "B3区 2层东侧疏散通道",
+            "inspectionCategoryName": "消防系统",
+            "inspectionCategoryDescription": "围绕疏散照明、告警与应急响应链路进行检测。",
             "issueCategory": "应急照明",
             "riskLevelLabel": "夜间疏散风险高",
             "sourceInspectionTask": "2025 年 12 月综合检测",
@@ -52,17 +105,91 @@
               "https://picsum.photos/seed/buildguard-5005-a/480/320",
               "https://picsum.photos/seed/buildguard-5005-b/480/320"
             ]
+          },
+          {
+            "id": 10104,
+            "title": "防火门释放器联动状态",
+            "location": "2层防火分区连通口",
+            "inspectionCategoryName": "消防系统",
+            "inspectionCategoryDescription": "围绕疏散照明、告警与应急响应链路进行检测。",
+            "issueCategory": "消防联动",
+            "riskLevelLabel": "联动响应延迟",
+            "sourceInspectionTask": "2025 年 12 月综合检测",
+            "sourceFinding": "防火门释放器动作延迟，建议排查电磁释放模块。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测发现防火门释放器联动延迟，需同步排查控制模块与线缆接点。",
+            "sourceDescription": "A 栋 2 层防火分区连通口防火门释放器测试时动作延迟约 3 秒，未达响应要求。",
+            "sourceImpact": "火警联动时防火分区关闭可能滞后，影响烟气控制效果。",
+            "sourceRemark": "建议与本层消防回路一起复测。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-101-a3/480/320",
+              "https://picsum.photos/seed/buildguard-101-a4/480/320"
+            ]
           }
         ]
       },
       {
         "id": 2,
         "name": "B栋",
+        "categories": [
+          {
+            "id": 1201,
+            "name": "消防系统",
+            "description": "围绕疏散标识、应急导向和火灾响应能力进行检测。",
+            "items": [
+              {
+                "id": 10102,
+                "title": "楼梯间疏散指示灯",
+                "location": "1层西侧封闭楼梯间",
+                "inspectionCategoryName": "消防系统",
+                "inspectionCategoryDescription": "围绕疏散标识、应急导向和火灾响应能力进行检测。",
+                "issueCategory": "疏散指示",
+                "riskLevelLabel": "导向识别受影响",
+                "sourceInspectionTask": "2025 年 12 月综合检测",
+                "sourceFinding": "一组疏散指示灯闪烁，建议同步更换电源模块。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测发现楼梯间导向标识闪烁，建议与应急照明一并整改。",
+                "sourceDescription": "B 栋 1 层西侧封闭楼梯间 1 组疏散指示灯出现频繁闪烁，亮度不稳定。",
+                "sourceImpact": "应急场景下导向识别度下降，可能影响人员快速撤离。",
+                "sourceRemark": "建议同步检查相邻回路输出电压。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-101-b1/480/320",
+                  "https://picsum.photos/seed/buildguard-101-b2/480/320"
+                ]
+              },
+              {
+                "id": 10105,
+                "title": "消防广播末端扬声器",
+                "location": "3层西侧走廊",
+                "inspectionCategoryName": "消防系统",
+                "inspectionCategoryDescription": "围绕疏散标识、应急导向和火灾响应能力进行检测。",
+                "issueCategory": "消防广播",
+                "riskLevelLabel": "语音播报覆盖不足",
+                "sourceInspectionTask": "2025 年 12 月综合检测",
+                "sourceFinding": "末端扬声器音量异常偏低，需排查功放支路。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测发现局部消防广播覆盖偏弱，建议同步检查末端扬声器和线路衰减。",
+                "sourceDescription": "B 栋 3 层西侧走廊消防广播测试时音量明显低于同层其他点位。",
+                "sourceImpact": "火警语音疏散指令传达效果下降，影响现场引导。",
+                "sourceRemark": "建议复测功放输出并检查末端接线。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-101-b3/480/320",
+                  "https://picsum.photos/seed/buildguard-101-b4/480/320"
+                ]
+              }
+            ]
+          }
+        ],
         "issues": [
           {
             "id": 10102,
             "title": "楼梯间疏散指示灯",
             "location": "1层西侧封闭楼梯间",
+            "inspectionCategoryName": "消防系统",
+            "inspectionCategoryDescription": "围绕疏散标识、应急导向和火灾响应能力进行检测。",
             "issueCategory": "疏散指示",
             "riskLevelLabel": "导向识别受影响",
             "sourceInspectionTask": "2025 年 12 月综合检测",
@@ -77,17 +204,91 @@
               "https://picsum.photos/seed/buildguard-101-b1/480/320",
               "https://picsum.photos/seed/buildguard-101-b2/480/320"
             ]
+          },
+          {
+            "id": 10105,
+            "title": "消防广播末端扬声器",
+            "location": "3层西侧走廊",
+            "inspectionCategoryName": "消防系统",
+            "inspectionCategoryDescription": "围绕疏散标识、应急导向和火灾响应能力进行检测。",
+            "issueCategory": "消防广播",
+            "riskLevelLabel": "语音播报覆盖不足",
+            "sourceInspectionTask": "2025 年 12 月综合检测",
+            "sourceFinding": "末端扬声器音量异常偏低，需排查功放支路。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测发现局部消防广播覆盖偏弱，建议同步检查末端扬声器和线路衰减。",
+            "sourceDescription": "B 栋 3 层西侧走廊消防广播测试时音量明显低于同层其他点位。",
+            "sourceImpact": "火警语音疏散指令传达效果下降，影响现场引导。",
+            "sourceRemark": "建议复测功放输出并检查末端接线。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-101-b3/480/320",
+              "https://picsum.photos/seed/buildguard-101-b4/480/320"
+            ]
           }
         ]
       },
       {
         "id": 3,
         "name": "F栋",
+        "categories": [
+          {
+            "id": 1301,
+            "name": "消防系统",
+            "description": "围绕消防值守环境和应急供电稳定性进行检测。",
+            "items": [
+              {
+                "id": 10103,
+                "title": "消防泵房末端照明回路",
+                "location": "消防泵房配电末端",
+                "inspectionCategoryName": "消防系统",
+                "inspectionCategoryDescription": "围绕消防值守环境和应急供电稳定性进行检测。",
+                "issueCategory": "消防配电",
+                "riskLevelLabel": "夜间值守风险",
+                "sourceInspectionTask": "2025 年 12 月综合检测",
+                "sourceFinding": "末端回路切换迟滞，建议更换老化开关模块。",
+                "sourceStatusLabel": "存在风险",
+                "sourceStatus": "risk",
+                "dispatchReason": "检测发现消防泵房末端照明回路接触不良，需尽快恢复。",
+                "sourceDescription": "F 栋消防泵房照明回路切换时存在明显迟滞，夜间局部照度不足。",
+                "sourceImpact": "影响夜间值守和紧急检修响应，存在消防处置风险。",
+                "sourceRemark": "需与值班班组确认夜间施工窗口。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-101-f1/480/320",
+                  "https://picsum.photos/seed/buildguard-101-f2/480/320"
+                ]
+              },
+              {
+                "id": 10106,
+                "title": "泵房应急插座回路",
+                "location": "消防泵房值守区",
+                "inspectionCategoryName": "消防系统",
+                "inspectionCategoryDescription": "围绕消防值守环境和应急供电稳定性进行检测。",
+                "issueCategory": "应急供电",
+                "riskLevelLabel": "临时检修供电不稳",
+                "sourceInspectionTask": "2025 年 12 月综合检测",
+                "sourceFinding": "应急插座回路压降偏大，需复核接线端子。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测发现泵房值守区应急插座回路压降异常，建议同步处理。",
+                "sourceDescription": "F 栋消防泵房值守区应急插座带载测试时电压波动明显，高于允许范围。",
+                "sourceImpact": "影响临时检修设备稳定供电，降低抢修效率。",
+                "sourceRemark": "建议与照明回路同窗口处理。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-101-f3/480/320",
+                  "https://picsum.photos/seed/buildguard-101-f4/480/320"
+                ]
+              }
+            ]
+          }
+        ],
         "issues": [
           {
             "id": 10103,
             "title": "消防泵房末端照明回路",
             "location": "消防泵房配电末端",
+            "inspectionCategoryName": "消防系统",
+            "inspectionCategoryDescription": "围绕消防值守环境和应急供电稳定性进行检测。",
             "issueCategory": "消防配电",
             "riskLevelLabel": "夜间值守风险",
             "sourceInspectionTask": "2025 年 12 月综合检测",
@@ -101,6 +302,27 @@
             "sourcePhotos": [
               "https://picsum.photos/seed/buildguard-101-f1/480/320",
               "https://picsum.photos/seed/buildguard-101-f2/480/320"
+            ]
+          },
+          {
+            "id": 10106,
+            "title": "泵房应急插座回路",
+            "location": "消防泵房值守区",
+            "inspectionCategoryName": "消防系统",
+            "inspectionCategoryDescription": "围绕消防值守环境和应急供电稳定性进行检测。",
+            "issueCategory": "应急供电",
+            "riskLevelLabel": "临时检修供电不稳",
+            "sourceInspectionTask": "2025 年 12 月综合检测",
+            "sourceFinding": "应急插座回路压降偏大，需复核接线端子。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测发现泵房值守区应急插座回路压降异常，建议同步处理。",
+            "sourceDescription": "F 栋消防泵房值守区应急插座带载测试时电压波动明显，高于允许范围。",
+            "sourceImpact": "影响临时检修设备稳定供电，降低抢修效率。",
+            "sourceRemark": "建议与照明回路同窗口处理。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-101-f3/480/320",
+              "https://picsum.photos/seed/buildguard-101-f4/480/320"
             ]
           }
         ]
@@ -150,11 +372,64 @@
       {
         "id": 1,
         "name": "1号仓库",
+        "categories": [
+          {
+            "id": 2101,
+            "name": "供配电系统",
+            "description": "围绕配电柜运行、散热与温升状态进行检测。",
+            "items": [
+              {
+                "id": 10201,
+                "title": "配电箱散热风扇运行状态",
+                "location": "西侧设备夹层配电箱",
+                "inspectionCategoryName": "供配电系统",
+                "inspectionCategoryDescription": "围绕配电柜运行、散热与温升状态进行检测。",
+                "issueCategory": "配电散热",
+                "riskLevelLabel": "中度温升风险",
+                "sourceInspectionTask": "2026 年 3 月综合检测",
+                "sourceFinding": "散热风扇异响并伴随温升，建议更换风扇模组。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测过程中发现配电箱散热异常，需要更换风扇并清理滤网。",
+                "sourceDescription": "1号仓库西侧设备夹层配电箱散热风扇异响明显，柜内局部测温较周边高 6.8℃。",
+                "sourceImpact": "若持续运行，配电箱散热效率下降，可能导致元件温升加剧并缩短使用寿命。",
+                "sourceRemark": "建议本周内更换风扇模组并清理防尘滤网。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-maint-102-a/480/320",
+                  "https://picsum.photos/seed/buildguard-maint-102-b/480/320"
+                ]
+              },
+              {
+                "id": 10204,
+                "title": "配电箱门板密封条老化",
+                "location": "西侧设备夹层配电箱",
+                "inspectionCategoryName": "供配电系统",
+                "inspectionCategoryDescription": "围绕配电柜运行、散热与温升状态进行检测。",
+                "issueCategory": "柜体状态",
+                "riskLevelLabel": "积尘与进风异常",
+                "sourceInspectionTask": "2026 年 3 月综合检测",
+                "sourceFinding": "柜门密封条局部脱落，建议同步更换。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测发现柜门密封条老化，会影响柜内散热与防尘效果，建议同次处理。",
+                "sourceDescription": "1号仓库西侧设备夹层配电箱门板密封条局部脱落，存在明显缝隙。",
+                "sourceImpact": "粉尘更易进入柜内，增加散热器件积尘和温升风险。",
+                "sourceRemark": "更换后需复核门板闭合严密性。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-102-a3/480/320",
+                  "https://picsum.photos/seed/buildguard-102-a4/480/320"
+                ]
+              }
+            ]
+          }
+        ],
         "issues": [
           {
             "id": 10201,
             "title": "配电箱散热风扇运行状态",
             "location": "西侧设备夹层配电箱",
+            "inspectionCategoryName": "供配电系统",
+            "inspectionCategoryDescription": "围绕配电柜运行、散热与温升状态进行检测。",
             "issueCategory": "配电散热",
             "riskLevelLabel": "中度温升风险",
             "sourceInspectionTask": "2026 年 3 月综合检测",
@@ -169,17 +444,91 @@
               "https://picsum.photos/seed/buildguard-maint-102-a/480/320",
               "https://picsum.photos/seed/buildguard-maint-102-b/480/320"
             ]
+          },
+          {
+            "id": 10204,
+            "title": "配电箱门板密封条老化",
+            "location": "西侧设备夹层配电箱",
+            "inspectionCategoryName": "供配电系统",
+            "inspectionCategoryDescription": "围绕配电柜运行、散热与温升状态进行检测。",
+            "issueCategory": "柜体状态",
+            "riskLevelLabel": "积尘与进风异常",
+            "sourceInspectionTask": "2026 年 3 月综合检测",
+            "sourceFinding": "柜门密封条局部脱落，建议同步更换。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测发现柜门密封条老化，会影响柜内散热与防尘效果，建议同次处理。",
+            "sourceDescription": "1号仓库西侧设备夹层配电箱门板密封条局部脱落，存在明显缝隙。",
+            "sourceImpact": "粉尘更易进入柜内，增加散热器件积尘和温升风险。",
+            "sourceRemark": "更换后需复核门板闭合严密性。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-102-a3/480/320",
+              "https://picsum.photos/seed/buildguard-102-a4/480/320"
+            ]
           }
         ]
       },
       {
         "id": 2,
         "name": "2号仓库",
+        "categories": [
+          {
+            "id": 2201,
+            "name": "供配电系统",
+            "description": "围绕配电柜运行、散热与温升状态进行检测。",
+            "items": [
+              {
+                "id": 10202,
+                "title": "低压柜滤网堵塞",
+                "location": "北侧低压柜组",
+                "inspectionCategoryName": "供配电系统",
+                "inspectionCategoryDescription": "围绕配电柜运行、散热与温升状态进行检测。",
+                "issueCategory": "配电散热",
+                "riskLevelLabel": "散热效率下降",
+                "sourceInspectionTask": "2026 年 3 月综合检测",
+                "sourceFinding": "滤网粉尘堆积明显，建议与风扇检修同步处理。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测发现低压柜滤网堵塞，会放大温升问题，建议一并处理。",
+                "sourceDescription": "2号仓库北侧低压柜组滤网粉尘堆积较多，柜内空气流通受限。",
+                "sourceImpact": "持续运行下可能导致散热效率下降，增大元件老化速度。",
+                "sourceRemark": "清理后需复测柜内温升趋势。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-102-b1/480/320",
+                  "https://picsum.photos/seed/buildguard-102-b2/480/320"
+                ]
+              },
+              {
+                "id": 10205,
+                "title": "柜内温湿度传感器偏移",
+                "location": "北侧低压柜组",
+                "inspectionCategoryName": "供配电系统",
+                "inspectionCategoryDescription": "围绕配电柜运行、散热与温升状态进行检测。",
+                "issueCategory": "监测装置",
+                "riskLevelLabel": "监测数据失真",
+                "sourceInspectionTask": "2026 年 3 月综合检测",
+                "sourceFinding": "温湿度传感器读数与现场复测偏差较大。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测发现监测装置读数偏移，建议校准或更换。",
+                "sourceDescription": "2号仓库北侧低压柜组在线温湿度传感器与现场便携式仪表测值偏差明显。",
+                "sourceImpact": "影响柜内环境状态判断，可能延误异常发现。",
+                "sourceRemark": "处理后需同步校验监测平台数据。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-102-b5/480/320",
+                  "https://picsum.photos/seed/buildguard-102-b6/480/320"
+                ]
+              }
+            ]
+          }
+        ],
         "issues": [
           {
             "id": 10202,
             "title": "低压柜滤网堵塞",
             "location": "北侧低压柜组",
+            "inspectionCategoryName": "供配电系统",
+            "inspectionCategoryDescription": "围绕配电柜运行、散热与温升状态进行检测。",
             "issueCategory": "配电散热",
             "riskLevelLabel": "散热效率下降",
             "sourceInspectionTask": "2026 年 3 月综合检测",
@@ -194,17 +543,91 @@
               "https://picsum.photos/seed/buildguard-102-b1/480/320",
               "https://picsum.photos/seed/buildguard-102-b2/480/320"
             ]
+          },
+          {
+            "id": 10205,
+            "title": "柜内温湿度传感器偏移",
+            "location": "北侧低压柜组",
+            "inspectionCategoryName": "供配电系统",
+            "inspectionCategoryDescription": "围绕配电柜运行、散热与温升状态进行检测。",
+            "issueCategory": "监测装置",
+            "riskLevelLabel": "监测数据失真",
+            "sourceInspectionTask": "2026 年 3 月综合检测",
+            "sourceFinding": "温湿度传感器读数与现场复测偏差较大。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测发现监测装置读数偏移，建议校准或更换。",
+            "sourceDescription": "2号仓库北侧低压柜组在线温湿度传感器与现场便携式仪表测值偏差明显。",
+            "sourceImpact": "影响柜内环境状态判断，可能延误异常发现。",
+            "sourceRemark": "处理后需同步校验监测平台数据。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-102-b5/480/320",
+              "https://picsum.photos/seed/buildguard-102-b6/480/320"
+            ]
           }
         ]
       },
       {
         "id": 3,
         "name": "综合楼",
+        "categories": [
+          {
+            "id": 2301,
+            "name": "供配电系统",
+            "description": "围绕机房供电稳定性、散热与设备负载状态进行检测。",
+            "items": [
+              {
+                "id": 10203,
+                "title": "UPS配电柜风道温升异常",
+                "location": "弱电机房 UPS 配电柜",
+                "inspectionCategoryName": "供配电系统",
+                "inspectionCategoryDescription": "围绕机房供电稳定性、散热与设备负载状态进行检测。",
+                "issueCategory": "机房供配电",
+                "riskLevelLabel": "持续温升偏高",
+                "sourceInspectionTask": "2026 年 3 月综合检测",
+                "sourceFinding": "风道温升高于阈值，需补充清洁和复测。",
+                "sourceStatusLabel": "存在风险",
+                "sourceStatus": "risk",
+                "dispatchReason": "检测发现 UPS 配电柜风道温升异常，建议纳入本次散热整治。",
+                "sourceDescription": "综合楼弱电机房 UPS 配电柜风道温升偏高，热成像显示顶部热点集中。",
+                "sourceImpact": "若不及时处理，可能影响 UPS 柜持续运行稳定性。",
+                "sourceRemark": "需在业务低峰时段完成处理和复测。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-102-c1/480/320",
+                  "https://picsum.photos/seed/buildguard-102-c2/480/320"
+                ]
+              },
+              {
+                "id": 10206,
+                "title": "UPS输入回路端子复测",
+                "location": "弱电机房 UPS 配电柜",
+                "inspectionCategoryName": "供配电系统",
+                "inspectionCategoryDescription": "围绕机房供电稳定性、散热与设备负载状态进行检测。",
+                "issueCategory": "机房供配电",
+                "riskLevelLabel": "接点温升波动",
+                "sourceInspectionTask": "2026 年 3 月综合检测",
+                "sourceFinding": "输入回路端子温升波动明显，需纳入复测。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测建议对 UPS 输入回路端子同步紧固并复测热成像。",
+                "sourceDescription": "综合楼弱电机房 UPS 配电柜输入回路端子热成像温升存在周期性波动。",
+                "sourceImpact": "长期运行可能放大接点发热，影响 UPS 供电稳定性。",
+                "sourceRemark": "与风道清洁同次处理更高效。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-102-c3/480/320",
+                  "https://picsum.photos/seed/buildguard-102-c4/480/320"
+                ]
+              }
+            ]
+          }
+        ],
         "issues": [
           {
             "id": 10203,
             "title": "UPS配电柜风道温升异常",
             "location": "弱电机房 UPS 配电柜",
+            "inspectionCategoryName": "供配电系统",
+            "inspectionCategoryDescription": "围绕机房供电稳定性、散热与设备负载状态进行检测。",
             "issueCategory": "机房供配电",
             "riskLevelLabel": "持续温升偏高",
             "sourceInspectionTask": "2026 年 3 月综合检测",
@@ -218,6 +641,27 @@
             "sourcePhotos": [
               "https://picsum.photos/seed/buildguard-102-c1/480/320",
               "https://picsum.photos/seed/buildguard-102-c2/480/320"
+            ]
+          },
+          {
+            "id": 10206,
+            "title": "UPS输入回路端子复测",
+            "location": "弱电机房 UPS 配电柜",
+            "inspectionCategoryName": "供配电系统",
+            "inspectionCategoryDescription": "围绕机房供电稳定性、散热与设备负载状态进行检测。",
+            "issueCategory": "机房供配电",
+            "riskLevelLabel": "接点温升波动",
+            "sourceInspectionTask": "2026 年 3 月综合检测",
+            "sourceFinding": "输入回路端子温升波动明显，需纳入复测。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测建议对 UPS 输入回路端子同步紧固并复测热成像。",
+            "sourceDescription": "综合楼弱电机房 UPS 配电柜输入回路端子热成像温升存在周期性波动。",
+            "sourceImpact": "长期运行可能放大接点发热，影响 UPS 供电稳定性。",
+            "sourceRemark": "与风道清洁同次处理更高效。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-102-c3/480/320",
+              "https://picsum.photos/seed/buildguard-102-c4/480/320"
             ]
           }
         ]
@@ -309,11 +753,64 @@
       {
         "id": 1,
         "name": "A栋",
+        "categories": [
+          {
+            "id": 3101,
+            "name": "供配电系统",
+            "description": "围绕充电、低压回路与接线可靠性进行检测。",
+            "items": [
+              {
+                "id": 10401,
+                "title": "充电桩配电回路端子紧固度",
+                "location": "地下车库充电桩配电柜",
+                "inspectionCategoryName": "供配电系统",
+                "inspectionCategoryDescription": "围绕充电、低压回路与接线可靠性进行检测。",
+                "issueCategory": "配电回路",
+                "riskLevelLabel": "局部发热风险",
+                "sourceInspectionTask": "2025 年 11 月设备维护检测",
+                "sourceFinding": "回路端子轻微松动，存在发热风险。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "对充电桩配电柜进行端子紧固和复测。",
+                "sourceDescription": "地下车库充电桩配电柜 2 号回路端子存在轻微松动，热成像显示接线端温度偏高。",
+                "sourceImpact": "持续运行可能引发局部发热，进而影响回路稳定性和充电设备供电安全。",
+                "sourceRemark": "建议安排停电窗口完成紧固并复测温升。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-maint-104-a/480/320",
+                  "https://picsum.photos/seed/buildguard-maint-104-b/480/320"
+                ]
+              },
+              {
+                "id": 10403,
+                "title": "充电桩支路绝缘复测",
+                "location": "地下车库充电桩配电柜",
+                "inspectionCategoryName": "供配电系统",
+                "inspectionCategoryDescription": "围绕充电、低压回路与接线可靠性进行检测。",
+                "issueCategory": "配电回路",
+                "riskLevelLabel": "绝缘裕量下降",
+                "sourceInspectionTask": "2025 年 11 月设备维护检测",
+                "sourceFinding": "支路绝缘值接近预警阈值，建议同步复测。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测建议在停电窗口内同步完成支路绝缘复测，排除潜在老化。",
+                "sourceDescription": "A 栋地下车库充电桩支路绝缘值较历史均值有下降趋势，接近预警阈值。",
+                "sourceImpact": "若持续下降，可能影响回路稳定性和充电设备运行安全。",
+                "sourceRemark": "复测后更新回路台账。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-104-a3/480/320",
+                  "https://picsum.photos/seed/buildguard-104-a4/480/320"
+                ]
+              }
+            ]
+          }
+        ],
         "issues": [
           {
             "id": 10401,
             "title": "充电桩配电回路端子紧固度",
             "location": "地下车库充电桩配电柜",
+            "inspectionCategoryName": "供配电系统",
+            "inspectionCategoryDescription": "围绕充电、低压回路与接线可靠性进行检测。",
             "issueCategory": "配电回路",
             "riskLevelLabel": "局部发热风险",
             "sourceInspectionTask": "2025 年 11 月设备维护检测",
@@ -328,17 +825,91 @@
               "https://picsum.photos/seed/buildguard-maint-104-a/480/320",
               "https://picsum.photos/seed/buildguard-maint-104-b/480/320"
             ]
+          },
+          {
+            "id": 10403,
+            "title": "充电桩支路绝缘复测",
+            "location": "地下车库充电桩配电柜",
+            "inspectionCategoryName": "供配电系统",
+            "inspectionCategoryDescription": "围绕充电、低压回路与接线可靠性进行检测。",
+            "issueCategory": "配电回路",
+            "riskLevelLabel": "绝缘裕量下降",
+            "sourceInspectionTask": "2025 年 11 月设备维护检测",
+            "sourceFinding": "支路绝缘值接近预警阈值，建议同步复测。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测建议在停电窗口内同步完成支路绝缘复测，排除潜在老化。",
+            "sourceDescription": "A 栋地下车库充电桩支路绝缘值较历史均值有下降趋势，接近预警阈值。",
+            "sourceImpact": "若持续下降，可能影响回路稳定性和充电设备运行安全。",
+            "sourceRemark": "复测后更新回路台账。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-104-a3/480/320",
+              "https://picsum.photos/seed/buildguard-104-a4/480/320"
+            ]
           }
         ]
       },
       {
         "id": 2,
         "name": "B栋",
+        "categories": [
+          {
+            "id": 3201,
+            "name": "供配电系统",
+            "description": "围绕充电、低压回路与接线可靠性进行检测。",
+            "items": [
+              {
+                "id": 10402,
+                "title": "配电柜母排连接复核",
+                "location": "一层设备间低压配电柜",
+                "inspectionCategoryName": "供配电系统",
+                "inspectionCategoryDescription": "围绕充电、低压回路与接线可靠性进行检测。",
+                "issueCategory": "配电回路",
+                "riskLevelLabel": "连接温升可控",
+                "sourceInspectionTask": "2025 年 11 月设备维护检测",
+                "sourceFinding": "母排连接处温升略高，建议同步复核扭矩。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测建议与 A 栋工单合并复核，减少重复停电窗口。",
+                "sourceDescription": "B 栋一层设备间低压配电柜母排连接处温升略高，但未出现持续异常扩大。",
+                "sourceImpact": "短期风险可控，但长期运行可能影响连接可靠性。",
+                "sourceRemark": "已在同次停电窗口完成扭矩复核。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-104-b1/480/320",
+                  "https://picsum.photos/seed/buildguard-104-b2/480/320"
+                ]
+              },
+              {
+                "id": 10404,
+                "title": "柜门接地软连接检查",
+                "location": "一层设备间低压配电柜",
+                "inspectionCategoryName": "供配电系统",
+                "inspectionCategoryDescription": "围绕充电、低压回路与接线可靠性进行检测。",
+                "issueCategory": "柜体状态",
+                "riskLevelLabel": "接地连续性待确认",
+                "sourceInspectionTask": "2025 年 11 月设备维护检测",
+                "sourceFinding": "柜门接地软连接老化，建议同步更换。",
+                "sourceStatusLabel": "需重点关注",
+                "sourceStatus": "focus",
+                "dispatchReason": "检测发现柜门接地软连接外皮破损，建议同次更换。",
+                "sourceDescription": "B 栋一层设备间低压配电柜柜门接地软连接外皮老化、局部破损。",
+                "sourceImpact": "影响柜门接地连续性，降低检修安全裕量。",
+                "sourceRemark": "更换后需做连续性测试。",
+                "sourcePhotos": [
+                  "https://picsum.photos/seed/buildguard-104-b3/480/320",
+                  "https://picsum.photos/seed/buildguard-104-b4/480/320"
+                ]
+              }
+            ]
+          }
+        ],
         "issues": [
           {
             "id": 10402,
             "title": "配电柜母排连接复核",
             "location": "一层设备间低压配电柜",
+            "inspectionCategoryName": "供配电系统",
+            "inspectionCategoryDescription": "围绕充电、低压回路与接线可靠性进行检测。",
             "issueCategory": "配电回路",
             "riskLevelLabel": "连接温升可控",
             "sourceInspectionTask": "2025 年 11 月设备维护检测",
@@ -352,6 +923,27 @@
             "sourcePhotos": [
               "https://picsum.photos/seed/buildguard-104-b1/480/320",
               "https://picsum.photos/seed/buildguard-104-b2/480/320"
+            ]
+          },
+          {
+            "id": 10404,
+            "title": "柜门接地软连接检查",
+            "location": "一层设备间低压配电柜",
+            "inspectionCategoryName": "供配电系统",
+            "inspectionCategoryDescription": "围绕充电、低压回路与接线可靠性进行检测。",
+            "issueCategory": "柜体状态",
+            "riskLevelLabel": "接地连续性待确认",
+            "sourceInspectionTask": "2025 年 11 月设备维护检测",
+            "sourceFinding": "柜门接地软连接老化，建议同步更换。",
+            "sourceStatusLabel": "需重点关注",
+            "sourceStatus": "focus",
+            "dispatchReason": "检测发现柜门接地软连接外皮破损，建议同次更换。",
+            "sourceDescription": "B 栋一层设备间低压配电柜柜门接地软连接外皮老化、局部破损。",
+            "sourceImpact": "影响柜门接地连续性，降低检修安全裕量。",
+            "sourceRemark": "更换后需做连续性测试。",
+            "sourcePhotos": [
+              "https://picsum.photos/seed/buildguard-104-b3/480/320",
+              "https://picsum.photos/seed/buildguard-104-b4/480/320"
             ]
           }
         ]

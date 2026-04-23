@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { fetchMaintenanceTaskDetail } from '../../api/maintenance'
 import type {
   MaintenanceBuildingIssues,
+  MaintenanceIssueCategory,
   MaintenanceIssue,
   MaintenanceTaskDetail,
 } from '../../types/maintenance'
@@ -28,6 +29,7 @@ const resultConfirmable = ref(false)
 const issueDrawerVisible = ref(false)
 const selectedBuildingIndex = ref(0)
 const selectedIssueId = ref<number | null>(null)
+const expandedCategoryIds = ref<number[]>([])
 
 const taskId = computed(() => Number(route.params.id))
 
@@ -62,7 +64,30 @@ const currentBuilding = computed(() =>
   buildingsList.value[selectedBuildingIndex.value] ?? null,
 )
 
-const currentIssues = computed(() => currentBuilding.value?.issues ?? [])
+const currentCategories = computed((): MaintenanceIssueCategory[] => {
+  const building = currentBuilding.value
+  if (!building) return []
+  if (building.categories?.length) return building.categories
+
+  const categoryMap = new Map<string, MaintenanceIssueCategory>()
+  for (const issue of building.issues) {
+    const key = issue.inspectionCategoryName || issue.issueCategory || '其他问题'
+    if (!categoryMap.has(key)) {
+      categoryMap.set(key, {
+        id: building.id * 1000 + categoryMap.size + 1,
+        name: key,
+        description: issue.inspectionCategoryDescription,
+        items: [],
+      })
+    }
+    categoryMap.get(key)?.items.push(issue)
+  }
+  return Array.from(categoryMap.values())
+})
+
+const currentIssues = computed(() =>
+  currentCategories.value.flatMap((category) => category.items),
+)
 
 const selectedIssue = computed(() => {
   const issues = currentIssues.value
@@ -100,7 +125,10 @@ const statusIconColor = computed(() => {
 const currentBuildingSummary = computed(() => {
   const building = currentBuilding.value
   if (!building) return ''
-  return `${building.name} · ${building.issues.length} 个问题`
+  const total = building.categories?.length
+    ? building.categories.reduce((sum, category) => sum + category.items.length, 0)
+    : building.issues.length
+  return `${building.name} · ${total} 个问题`
 })
 
 const detailTimeText = computed(() => {
@@ -180,7 +208,9 @@ const hasFillRemainingAction = computed(() =>
 
 function buildingStats(building: MaintenanceBuildingIssues) {
   return {
-    total: building.issues.length,
+    total: building.categories?.length
+      ? building.categories.reduce((sum, category) => sum + category.items.length, 0)
+      : building.issues.length,
   }
 }
 
@@ -215,12 +245,28 @@ function issueStatusIcon(issue: MaintenanceIssue) {
 function selectBuilding(index: number) {
   if (index === selectedBuildingIndex.value) return
   selectedBuildingIndex.value = index
-  selectedIssueId.value = currentBuilding.value?.issues[0]?.id ?? null
+  expandedCategoryIds.value = []
+  selectedIssueId.value = currentCategories.value[0]?.items[0]?.id ?? null
 }
 
 function openIssueDrawer(issue: MaintenanceIssue) {
   selectedIssueId.value = issue.id
   issueDrawerVisible.value = true
+}
+
+function toggleCategory(category: MaintenanceIssueCategory) {
+  const ids = expandedCategoryIds.value
+  if (ids.includes(category.id)) {
+    expandedCategoryIds.value = ids.filter((id) => id !== category.id)
+  } else {
+    expandedCategoryIds.value = [...ids, category.id]
+  }
+}
+
+function categoryStats(category: MaintenanceIssueCategory) {
+  return {
+    total: category.items.length,
+  }
 }
 
 function onCall() {
@@ -340,7 +386,10 @@ async function loadTask(id: number) {
     afterMedia.value = data.afterMedia ? [...data.afterMedia] : []
     executionNote.value = data.executionNote ?? ''
     selectedBuildingIndex.value = 0
-    selectedIssueId.value = data.buildings?.[0]?.issues[0]?.id ?? data.id
+    expandedCategoryIds.value = []
+    selectedIssueId.value = data.buildings?.[0]?.categories?.[0]?.items?.[0]?.id
+      ?? data.buildings?.[0]?.issues?.[0]?.id
+      ?? data.id
   } catch {
     errorMessage.value = '维修任务加载失败，请稍后重试'
   } finally {
@@ -356,6 +405,75 @@ watch(
     }
   },
 )
+
+watch(
+  currentBuilding,
+  async (building) => {
+    if (!building) {
+      expandedCategoryIds.value = []
+      selectedIssueId.value = null
+      return
+    }
+    const categories = currentCategories.value
+    expandedCategoryIds.value = categories.length ? [categories[0].id] : []
+    const issueIds = new Set(categories.flatMap((category) => category.items.map((item) => item.id)))
+    if (!selectedIssueId.value || !issueIds.has(selectedIssueId.value)) {
+      await nextTick()
+      selectedIssueId.value = categories[0]?.items[0]?.id ?? null
+    }
+  },
+  { immediate: true },
+)
+
+function onExpandEnter(el: Element, done: () => void) {
+  const element = el as HTMLElement
+  element.style.overflow = 'hidden'
+  element.style.height = '0'
+  element.style.opacity = '0'
+  element.offsetHeight
+  element.style.transition = 'height 280ms cubic-bezier(0.25,0.1,0.25,1), opacity 200ms ease 40ms'
+  element.style.height = `${element.scrollHeight}px`
+  element.style.opacity = '1'
+  element.addEventListener('transitionend', function handler(e: TransitionEvent) {
+    if (e.propertyName === 'height') {
+      element.removeEventListener('transitionend', handler)
+      done()
+    }
+  })
+}
+
+function onExpandAfterEnter(el: Element) {
+  const element = el as HTMLElement
+  element.style.transition = ''
+  element.style.height = ''
+  element.style.overflow = ''
+  element.style.opacity = ''
+}
+
+function onExpandLeave(el: Element, done: () => void) {
+  const element = el as HTMLElement
+  element.style.overflow = 'hidden'
+  element.style.height = `${element.scrollHeight}px`
+  element.style.opacity = '1'
+  element.offsetHeight
+  element.style.transition = 'height 220ms cubic-bezier(0.25,0.1,0.25,1), opacity 160ms ease'
+  element.style.height = '0'
+  element.style.opacity = '0'
+  element.addEventListener('transitionend', function handler(e: TransitionEvent) {
+    if (e.propertyName === 'height') {
+      element.removeEventListener('transitionend', handler)
+      done()
+    }
+  })
+}
+
+function onExpandAfterLeave(el: Element) {
+  const element = el as HTMLElement
+  element.style.transition = ''
+  element.style.height = ''
+  element.style.overflow = ''
+  element.style.opacity = ''
+}
 
 watch(taskId, (id) => { loadTask(id) }, { immediate: true })
 </script>
@@ -472,40 +590,82 @@ watch(taskId, (id) => { loadTask(id) }, { immediate: true })
         </div>
 
         <h2 class="text-[16px] font-bold leading-[24px] text-[#171717] dark:text-[#E5E5E5]">
-          {{ currentBuilding ? `${currentBuilding.name} · 问题列表` : '问题列表' }}
+          {{ currentBuilding ? `${currentBuilding.name} · 检测问题` : '检测问题' }}
         </h2>
 
-        <div v-if="currentIssues.length" class="mt-4 flex flex-col gap-4">
-          <div class="card-shadow overflow-hidden rounded-xl bg-white dark:bg-[#262626]">
+        <div v-if="currentCategories.length" class="mt-4 flex flex-col gap-4">
+          <div
+            v-for="category in currentCategories"
+            :key="category.id"
+            class="card-shadow overflow-hidden rounded-xl bg-white dark:bg-[#262626]"
+          >
             <button
-              v-for="(issue, index) in currentIssues"
-              :key="issue.id"
               type="button"
-              class="flex w-full items-start gap-3 px-4 py-4 text-left transition-colors active:bg-black/[0.02] dark:active:bg-white/[0.04]"
-              :class="index > 0 ? 'border-t border-[#EBEBEB] dark:border-white/10' : ''"
-              @click="openIssueDrawer(issue)"
+              class="flex w-full px-4 text-left transition-colors active:bg-black/[0.02] dark:active:bg-white/[0.04]"
+              :class="expandedCategoryIds.includes(category.id) ? 'flex-col pt-4 pb-4' : 'h-[56px] items-center'"
+              @click="toggleCategory(category)"
             >
-              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F5F5F5] dark:bg-[#404040]">
-                <i :class="[issueStatusIcon(issue), 'text-[18px] leading-[18px]', issueStatusColor(issue)]" />
+              <div class="flex w-full items-center gap-2">
+                <span class="text-[16px] font-medium leading-[24px] text-[#171717] dark:text-[#E5E5E5]">{{ category.name }}</span>
+                <span class="min-w-0 flex-1 text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
+                  {{ categoryStats(category).total }} 个问题
+                </span>
+                <i
+                  class="ri-arrow-down-s-line shrink-0 text-[22px] leading-[22px] text-[#A3A3A3] transition-transform duration-300 ease-out"
+                  :class="expandedCategoryIds.includes(category.id) ? 'rotate-180' : ''"
+                />
               </div>
-              <div class="min-w-0 flex-1">
-                <div class="flex items-center gap-2">
-                  <span class="truncate text-[14px] font-medium leading-[20px] text-[#171717] dark:text-[#E5E5E5]">
-                    {{ issue.title }}
-                  </span>
-                  <span class="shrink-0 text-[12px] leading-[16px]" :class="issueStatusColor(issue)">
-                    {{ issueStatusLabel(issue) }}
-                  </span>
-                </div>
-                <p class="mt-1 text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
-                  {{ issue.location }}
-                </p>
-                <p class="mt-0.5 text-[12px] leading-[18px] text-[#737373] dark:text-[#A3A3A3]">
-                  {{ issue.issueCategory }} · {{ issue.riskLevelLabel }}
-                </p>
-              </div>
-              <i class="ri-arrow-right-s-line mt-1 shrink-0 text-[20px] leading-[20px] text-[#A3A3A3]" />
+              <p
+                v-if="expandedCategoryIds.includes(category.id) && category.description"
+                class="mt-1 text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]"
+              >
+                {{ category.description }}
+              </p>
             </button>
+
+            <Transition
+              :css="false"
+              @enter="onExpandEnter"
+              @after-enter="onExpandAfterEnter"
+              @leave="onExpandLeave"
+              @after-leave="onExpandAfterLeave"
+            >
+              <div v-if="expandedCategoryIds.includes(category.id)">
+                <div class="mx-4 h-px bg-[rgba(0,0,0,0.1)] dark:bg-white/10" />
+
+                <div
+                  v-for="(issue, index) in category.items"
+                  :key="issue.id"
+                  class="mx-4"
+                >
+                  <div v-if="index > 0" class="segment-divider" />
+                  <button
+                    type="button"
+                    class="flex h-[54px] w-full items-center gap-2 text-left transition-colors active:bg-black/[0.02] dark:active:bg-white/[0.04]"
+                    @click="openIssueDrawer(issue)"
+                  >
+                    <div class="flex h-5 w-5 shrink-0 items-center justify-center">
+                      <i
+                        :class="[issueStatusIcon(issue), 'text-[20px] leading-[20px]', issueStatusColor(issue)]"
+                      />
+                    </div>
+
+                    <span class="min-w-0 flex-1 truncate text-[14px] leading-[20px] text-[#171717] dark:text-[#E5E5E5]">
+                      {{ issue.title }}
+                    </span>
+
+                    <span
+                      class="shrink-0 text-[13px] leading-[20px]"
+                      :class="issueStatusColor(issue)"
+                    >
+                      {{ issueStatusLabel(issue) }}
+                    </span>
+
+                    <i class="ri-arrow-right-s-line shrink-0 text-[20px] leading-[20px] text-[#A3A3A3]" />
+                  </button>
+                </div>
+              </div>
+            </Transition>
           </div>
         </div>
 
