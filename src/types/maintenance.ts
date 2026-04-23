@@ -9,6 +9,8 @@ export interface MaintenanceTask {
   parkName: string
   taskName: string
   buildingName: string
+  buildingCount?: number
+  issueCount?: number
   address?: string
   location: string
   sourceInspectionTask: string

@@ -87,6 +87,12 @@ function openDetail(taskId: number) {
   router.push(`/maintenance/task/${taskId}`)
 }
 
+function taskSummary(task: MaintenanceTask) {
+  const buildingCount = task.buildingCount ?? 1
+  const issueCount = task.issueCount ?? 1
+  return `${buildingCount} 栋建筑 · ${issueCount} 个问题`
+}
+
 async function loadMaintenanceTasks() {
   loading.value = true
   errorMessage.value = ''
@@ -187,30 +193,21 @@ onBeforeUnmount(() => {
               class="cursor-pointer px-4"
               @click="openDetail(task.id)"
             >
-              <div class="flex flex-col gap-4 py-4" :class="index > 0 ? 'border-t border-[#EBEBEB] dark:border-white/10' : ''">
-                <div class="flex items-start justify-between gap-3">
-                  <div class="min-w-0">
-                    <span class="block text-[16px] font-medium leading-[24px] text-[#171717] dark:text-[#E5E5E5]">
-                      {{ task.parkName }}
-                    </span>
-                    <span class="block text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
-                      {{ task.taskName }}
-                    </span>
+                <div class="flex flex-col gap-4 py-4" :class="index > 0 ? 'border-t border-[#EBEBEB] dark:border-white/10' : ''">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                      <span class="block text-[16px] font-medium leading-[24px] text-[#171717] dark:text-[#E5E5E5]">
+                        {{ task.parkName }}
+                      </span>
+                      <span class="block text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
+                        {{ taskSummary(task) }}
+                      </span>
+                    </div>
+                    <div class="task-status-chip">
+                      <i :class="[statusIcon(task), 'text-[16px] leading-[16px]', statusIconColor(task)]" />
+                      <span class="task-status-text">{{ statusLabel(task) }}</span>
+                    </div>
                   </div>
-                  <div class="task-status-chip">
-                    <i :class="[statusIcon(task), 'text-[16px] leading-[16px]', statusIconColor(task)]" />
-                    <span class="task-status-text">{{ statusLabel(task) }}</span>
-                  </div>
-                </div>
-
-                <div class="space-y-1">
-                  <p class="text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
-                    {{ task.buildingName }} · {{ task.location }}
-                  </p>
-                  <p class="text-[12px] leading-[18px] text-[#737373] dark:text-[#737373]">
-                    来源：{{ task.sourceInspectionTask }} · {{ task.sourceFinding }}
-                  </p>
-                </div>
 
                 <button
                   type="button"
@@ -238,7 +235,7 @@ onBeforeUnmount(() => {
                         {{ task.parkName }}
                       </span>
                       <span class="block text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
-                        {{ task.taskName }}
+                        {{ taskSummary(task) }}
                       </span>
                     </div>
                     <div class="task-status-chip">
@@ -246,10 +243,6 @@ onBeforeUnmount(() => {
                       <span class="task-status-text">{{ statusLabel(task) }}</span>
                     </div>
                   </div>
-
-                  <p class="text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
-                    {{ task.buildingName }} · {{ task.location }}
-                  </p>
                 </div>
               </div>
             </div>
@@ -334,7 +327,7 @@ onBeforeUnmount(() => {
                     {{ task.parkName }}
                   </span>
                   <span class="text-[13px] leading-[20px] text-[#5C5C5C] dark:text-[#A3A3A3]">
-                    {{ task.taskName }}
+                    {{ taskSummary(task) }}
                   </span>
                 </div>
                 <div class="task-status-chip">
